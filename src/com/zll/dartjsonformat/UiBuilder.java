@@ -144,7 +144,7 @@ public class UiBuilder {
         }
 
         String tempSpaceStr = spaceStr + "  ";
-        int childSize = orderedList.size();
+        int childSize = orderedList.size() + objectList.size() + listList.size();
         if (childSize != 0) {
             sb.append("\n")
                     .append(spaceStr).append(className).append("({");
