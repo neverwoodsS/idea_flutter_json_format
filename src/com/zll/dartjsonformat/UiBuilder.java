@@ -145,11 +145,12 @@ public class UiBuilder {
 
         String tempSpaceStr = spaceStr + "  ";
         int childSize = orderedList.size() + objectList.size() + listList.size();
+
         if (childSize != 0) {
+            // 构造器
             sb.append("\n")
                     .append(spaceStr).append(className).append("({");
 
-            // 构造器
             for (String value : orderedList) {
                 sb.append("\n").append(tempSpaceStr).append("this.").append(value).append(",");
             }
@@ -161,35 +162,35 @@ public class UiBuilder {
             }
 
             sb.append("\n").append(spaceStr).append("});\n");
-
-            // map 转换
-            sb.append("\n").append(spaceStr)
-                    .append("static ").append(className).append(" fromMap").append("(Map<String, dynamic> map) {")
-                    .append("\n").append(tempSpaceStr)
-                    .append("return ").append(className).append("()");
-            for (String value : orderedList) {
-                sb.append("\n").append(tempSpaceStr).append("  ..").append(value).append(" = ").append("map['").append(value).append("']");
-            }
-            for (NameValuePair pair : objectList) {
-                sb.append("\n").append(tempSpaceStr).append("  ..").append(pair.value).append(" = ").append(pair.name).append(".fromMap(map['").append(pair.value).append("'])");
-            }
-            for (NameValuePair pair : listList) {
-                sb.append("\n").append(tempSpaceStr).append("  ..").append(pair.value).append(" = ").append(pair.name).append(".fromMapList(map['").append(pair.value).append("'])");
-            }
-            sb.append(";\n");
-            sb.append(spaceStr).append("}\n");
-
-            // list 转换
-            sb.append("\n").append(spaceStr)
-                    .append("static ").append("List<").append(className).append(">").append(" fromMapList").append("(dynamic mapList) {")
-                    .append("\n").append(tempSpaceStr).append("List<").append(className).append("> list = new List(mapList.length);")
-                    .append("\n").append(tempSpaceStr).append("for (int i = 0; i < mapList.length; i++) {")
-                    .append("\n").append(tempSpaceStr).append("  ").append("list[i] = fromMap(mapList[i]);")
-                    .append("\n").append(tempSpaceStr).append("}")
-                    .append("\n").append(tempSpaceStr).append("return list;")
-                    .append("\n").append(spaceStr).append("}")
-                    .append("\n");
         }
+
+        // map 转换
+        sb.append("\n").append(spaceStr)
+                .append("static ").append(className).append(" fromMap").append("(Map<String, dynamic> map) {")
+                .append("\n").append(tempSpaceStr)
+                .append("return new ").append(className).append("()");
+        for (String value : orderedList) {
+            sb.append("\n").append(tempSpaceStr).append("  ..").append(value).append(" = ").append("map['").append(value).append("']");
+        }
+        for (NameValuePair pair : objectList) {
+            sb.append("\n").append(tempSpaceStr).append("  ..").append(pair.value).append(" = ").append(pair.name).append(".fromMap(map['").append(pair.value).append("'])");
+        }
+        for (NameValuePair pair : listList) {
+            sb.append("\n").append(tempSpaceStr).append("  ..").append(pair.value).append(" = ").append(pair.name).append(".fromMapList(map['").append(pair.value).append("'])");
+        }
+        sb.append(";\n");
+        sb.append(spaceStr).append("}\n");
+
+        // list 转换
+        sb.append("\n").append(spaceStr)
+                .append("static ").append("List<").append(className).append(">").append(" fromMapList").append("(dynamic mapList) {")
+                .append("\n").append(tempSpaceStr).append("List<").append(className).append("> list = new List(mapList.length);")
+                .append("\n").append(tempSpaceStr).append("for (int i = 0; i < mapList.length; i++) {")
+                .append("\n").append(tempSpaceStr).append("  ").append("list[i] = fromMap(mapList[i]);")
+                .append("\n").append(tempSpaceStr).append("}")
+                .append("\n").append(tempSpaceStr).append("return list;")
+                .append("\n").append(spaceStr).append("}")
+                .append("\n");
 
         // 遍历类中类（主要目的是添加进 classes，而不 append）
         for (Map.Entry<String, List<CustomField>> entry : tempClasses.entrySet()) {
