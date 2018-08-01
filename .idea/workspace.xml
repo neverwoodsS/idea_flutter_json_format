@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="500ef166-4131-4507-b10a-50755ff559ca" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/example_image/file.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/example_image/install.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/example_image/jar.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/example_image/plugin.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dart_json_format.jar" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dart_json_format.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/zll/dartjsonformat/UiBuilder.java" afterPath="$PROJECT_DIR$/src/com/zll/dartjsonformat/UiBuilder.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -437,7 +431,14 @@
       <option name="project" value="LOCAL" />
       <updated>1533111013450</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="fix bug;&#10;add readme.md">
+      <created>1533113036656</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1533113036656</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -477,7 +478,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fix bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix bug" />
+    <MESSAGE value="fix bug;&#10;add readme.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix bug;&#10;add readme.md" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
