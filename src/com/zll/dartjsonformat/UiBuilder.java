@@ -86,6 +86,7 @@ public class UiBuilder {
         List<String> orderedList = new ArrayList<>();
         List<NameValuePair> listList = new ArrayList<>();
         List<NameValuePair> objectList = new ArrayList<>();
+        List<NameValuePair> listBaseList = new ArrayList<>();
         Map<String, List<CustomField>> tempClasses = new HashMap<>();
 
         String spaceStr = "";
@@ -133,6 +134,13 @@ public class UiBuilder {
         }
 
         for (CustomField field : fields) {
+            if (field.key.startsWith("List<")) {
+                sb.append(spaceStr).append(field.key).append(" ").append(field.value).append(";").append("\n");
+                listBaseList.add(new NameValuePair(field.key, field.value));
+            }
+        }
+
+        for (CustomField field : fields) {
             if ("list".equals(field.key)) {
                 String clazzName = toUpperCaseFirstOne(field.value + "ListBean");
                 classes.put(clazzName, field.clazz);
@@ -160,25 +168,60 @@ public class UiBuilder {
             for (NameValuePair pair : listList) {
                 sb.append("\n").append(tempSpaceStr).append("this.").append(pair.value).append(",");
             }
+            for (NameValuePair pair : listBaseList) {
+                sb.append("\n").append(tempSpaceStr).append("this.").append(pair.value).append(",");
+            }
 
             sb.append("\n").append(spaceStr).append("});\n");
         }
 
         // map 转换
+        String fieldName = toLowerCaseFirstOne(className);
         sb.append("\n").append(spaceStr)
                 .append("static ").append(className).append(" fromMap").append("(Map<String, dynamic> map) {")
                 .append("\n").append(tempSpaceStr)
-                .append("return new ").append(className).append("()");
+                .append(className).append(" ").append(fieldName).append(" = new ").append(className).append("();")
+//                .append("return new ").append(className).append("()");
+        ;
+
         for (String value : orderedList) {
-            sb.append("\n").append(tempSpaceStr).append("  ..").append(value).append(" = ").append("map['").append(value).append("']");
+//            sb.append("\n").append(tempSpaceStr).append("  ..").append(value).append(" = ").append("map['").append(value).append("']");
+            sb.append("\n").append(tempSpaceStr).append(fieldName).append(".").append(value).append(" = ").append("map['").append(value).append("'];");
         }
         for (NameValuePair pair : objectList) {
-            sb.append("\n").append(tempSpaceStr).append("  ..").append(pair.value).append(" = ").append(pair.name).append(".fromMap(map['").append(pair.value).append("'])");
+//            sb.append("\n").append(tempSpaceStr).append("  ..").append(pair.value).append(" = ").append(pair.name).append(".fromMap(map['").append(pair.value).append("'])");
+            sb.append("\n").append(tempSpaceStr).append(fieldName).append(".").append(pair.value).append(" = ").append(pair.name).append(".fromMap(map['").append(pair.value).append("']);");
         }
         for (NameValuePair pair : listList) {
-            sb.append("\n").append(tempSpaceStr).append("  ..").append(pair.value).append(" = ").append(pair.name).append(".fromMapList(map['").append(pair.value).append("'])");
+//            sb.append("\n").append(tempSpaceStr).append("  ..").append(pair.value).append(" = ").append(pair.name).append(".fromMapList(map['").append(pair.value).append("'])");
+            sb.append("\n").append(tempSpaceStr).append(fieldName).append(".").append(pair.value).append(" = ").append(pair.name).append(".fromMapList(map['").append(pair.value).append("']);");
         }
-        sb.append(";\n");
+
+        int count = 0;
+        for (NameValuePair pair : listBaseList) {
+            sb.append("\n");
+            sb.append("\n").append(tempSpaceStr).append("List<dynamic> dynamicList").append(count).append(" = map['").append(pair.value).append("'];");
+            sb.append("\n").append(tempSpaceStr).append(fieldName).append(".").append(pair.value).append(" = new List();");
+
+            String function = "o.toString()";
+            switch (pair.name) {
+                case "List<int>":
+                    function = "int.parse(o.toString())";
+                    break;
+                case "List<double>":
+                    function = "double.parse(o.toString())";
+                    break;
+                case "List<bool>":
+                    function = "o.toString() == 'true'";
+                    break;
+            }
+
+            sb.append("\n").append(tempSpaceStr).append(fieldName).append(".").append(pair.value).append(".addAll(dynamicList").append(count).append(".map((o) => ").append(function).append("));");
+            sb.append("\n");
+            count++;
+        }
+
+        sb.append("\n").append(tempSpaceStr).append("return ").append(fieldName).append(";\n");
         sb.append(spaceStr).append("}\n");
 
         // list 转换
@@ -217,7 +260,13 @@ public class UiBuilder {
         } else if (object instanceof JsonArray) {
             JsonArray jsonArray = (JsonArray) object;
             if (jsonArray.size() != 0) {
-                return new CustomField("list", key, json2Fields(jsonArray.get(0).getAsJsonObject()));
+                Object obj = jsonArray.get(0);
+                if (obj instanceof JsonObject) {
+                    return new CustomField("list", key, json2Fields(jsonArray.get(0).getAsJsonObject()));
+                } else {
+                    CustomField temp = keyValue("placeholder", obj);
+                    return new CustomField("List<" + temp.key + ">", key, null);
+                }
             } else {
                 return new CustomField("list", key, null);
             }
@@ -323,5 +372,13 @@ public class UiBuilder {
             return s;
         else
             return (new StringBuilder()).append(Character.toUpperCase(s.charAt(0))).append(s.substring(1)).toString();
+    }
+
+    // 首字母转小写
+    private String toLowerCaseFirstOne(String s){
+        if(Character.isLowerCase(s.charAt(0)))
+            return s;
+        else
+            return (new StringBuilder()).append(Character.toLowerCase(s.charAt(0))).append(s.substring(1)).toString();
     }
 }
