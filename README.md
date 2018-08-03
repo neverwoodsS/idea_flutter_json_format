@@ -480,5 +480,5 @@ it prints:
 
 #### 7. gif
 
-![gif](example/jsonformat.gif)
+![gif](example_image/jsonformat.gif)
 
