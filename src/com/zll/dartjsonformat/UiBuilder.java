@@ -1,12 +1,14 @@
 package com.zll.dartjsonformat;
 
 import com.google.gson.*;
+import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.ui.components.JBScrollPane;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
+import java.io.*;
 import java.util.*;
 import java.util.List;
 
@@ -14,11 +16,16 @@ import java.util.List;
  * Created by zhangll on 2018/7/31.
  */
 public class UiBuilder {
+    private VirtualFile file;
 
     private JLabel label;
     private JTextArea jsonText;
 
     private Map<String, List<CustomField>> classes = new HashMap<>();
+
+    public UiBuilder(VirtualFile file) {
+        this.file = file;
+    }
 
     public JComponent build() {
         JPanel panel = new JPanel();
@@ -77,13 +84,14 @@ public class UiBuilder {
                     .append(buildClasses());
 
             setSysClipboardText(stringBuilder.toString());
+            writeToFile(stringBuilder.toString());
 
             if (label != null) {
                 label.setText("dart classes have been copied to Clipboard automatically");
             }
-            if (jsonText != null) {
-                jsonText.setText(stringBuilder.toString());
-            }
+//            if (jsonText != null) {
+//                jsonText.setText(stringBuilder.toString());
+//            }
         } catch (JsonParseException jsonParseException) {
             jsonParseException.printStackTrace();
             if (label != null) {
@@ -408,5 +416,13 @@ public class UiBuilder {
             return s;
         else
             return (new StringBuilder()).append(Character.toLowerCase(s.charAt(0))).append(s.substring(1)).toString();
+    }
+
+    private void writeToFile(String content) {
+        try {
+            file.setBinaryContent(content.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
