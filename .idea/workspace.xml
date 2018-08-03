@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="500ef166-4131-4507-b10a-50755ff559ca" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dart_json_format.jar" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/zll/dartjsonformat/JsonFormatAction.java" afterPath="$PROJECT_DIR$/src/com/zll/dartjsonformat/JsonFormatAction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/zll/dartjsonformat/UiBuilder.java" afterPath="$PROJECT_DIR$/src/com/zll/dartjsonformat/UiBuilder.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,8 +22,8 @@
       <file leaf-file-name="UiBuilder.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/zll/dartjsonformat/UiBuilder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1764">
-              <caret line="98" column="9" lean-forward="true" selection-start-line="98" selection-start-column="9" selection-end-line="98" selection-end-column="9" />
+            <state relative-caret-position="288">
+              <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -497,7 +496,14 @@
       <option name="project" value="LOCAL" />
       <updated>1533237605393</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="swing changes">
+      <created>1533266244316</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1533266244316</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -540,7 +546,8 @@
     <MESSAGE value="fix bug;&#10;add readme.md" />
     <MESSAGE value="支持基本类型的 jsonArray" />
     <MESSAGE value="update jar" />
-    <option name="LAST_COMMIT_MESSAGE" value="update jar" />
+    <MESSAGE value="swing changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="swing changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -995,8 +1002,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/zll/dartjsonformat/UiBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1764">
-          <caret line="98" column="9" lean-forward="true" selection-start-line="98" selection-start-column="9" selection-end-line="98" selection-end-column="9" />
+        <state relative-caret-position="288">
+          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
