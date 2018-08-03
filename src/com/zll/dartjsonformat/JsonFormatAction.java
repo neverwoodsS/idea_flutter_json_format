@@ -14,7 +14,7 @@ public class JsonFormatAction extends AnAction {
         // 创建 JFrame 实例
         JFrame frame = new JFrame("json format");
         // Setting the width and height of frame
-        frame.setSize(700, 400);
+        frame.setSize(700, 470);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         frame.add(new UiBuilder().build());

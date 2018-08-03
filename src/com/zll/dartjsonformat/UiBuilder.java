@@ -1,6 +1,7 @@
 package com.zll.dartjsonformat;
 
 import com.google.gson.*;
+import com.intellij.ui.components.JBScrollPane;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -14,11 +15,15 @@ import java.util.List;
  */
 public class UiBuilder {
 
+    private JLabel label;
+    private JTextArea jsonText;
+
     private Map<String, List<CustomField>> classes = new HashMap<>();
 
     public JComponent build() {
         JPanel panel = new JPanel();
         placeComponents(panel);
+//        panel.setBounds(0, 0, 700, 450);
         return panel;
     }
 
@@ -28,14 +33,19 @@ public class UiBuilder {
          */
         panel.setLayout(null);
 
-        JLabel label = new JLabel("input your json and click ok, \ndart class contents will be copied to Clipboard");
+        label = new JLabel("input your json and click ok, \ndart class contents will be copied to Clipboard");
         label.setBounds(10, 0, 500, 40);
 
         /*
          * 创建文本域用于用户输入
          */
-        JTextArea jsonText = new JTextArea();
+        jsonText = new JTextArea();
         jsonText.setBounds(0,50,700,400);
+
+        JBScrollPane jbScrollPane = new JBScrollPane(jsonText);
+        jbScrollPane.setVerticalScrollBarPolicy(JBScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        jbScrollPane.setHorizontalScrollBarPolicy(JBScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        jbScrollPane.setBounds(0, 50, 700, 400);
 
         // 创建按钮
         JButton okButton;
@@ -45,12 +55,17 @@ public class UiBuilder {
         okButton.addActionListener(arg0 -> string2Json(jsonText.getText()));
 
         panel.add(okButton);
-        panel.add(jsonText);
+//        panel.add(jsonText);
+        panel.add(jbScrollPane);
         panel.add(label);
     }
 
     private void string2Json(String text) {
         try {
+            if (label != null) {
+                label.setText("input your json and click ok, \ndart classes will be copied to Clipboard");
+            }
+
             JsonParser parser = new JsonParser();
             JsonObject jsonObj = parser.parse(text).getAsJsonObject();
             List<CustomField> fields = json2Fields(jsonObj);
@@ -62,9 +77,25 @@ public class UiBuilder {
                     .append(buildClasses());
 
             setSysClipboardText(stringBuilder.toString());
+
+            if (label != null) {
+                label.setText("dart classes have been copied to Clipboard automatically");
+            }
+            if (jsonText != null) {
+                jsonText.setText(stringBuilder.toString());
+            }
         } catch (JsonParseException jsonParseException) {
-            // not json
             jsonParseException.printStackTrace();
+            if (label != null) {
+                label.setText("not supported json");
+            }
+        } catch (IllegalStateException illegalStateException) {
+            illegalStateException.printStackTrace();
+            if (illegalStateException.getMessage().startsWith("Not a JSON Object")) {
+                if (label != null) {
+                    label.setText("not supported json");
+                }
+            }
         }
     }
 
@@ -185,15 +216,12 @@ public class UiBuilder {
         ;
 
         for (String value : orderedList) {
-//            sb.append("\n").append(tempSpaceStr).append("  ..").append(value).append(" = ").append("map['").append(value).append("']");
             sb.append("\n").append(tempSpaceStr).append(fieldName).append(".").append(value).append(" = ").append("map['").append(value).append("'];");
         }
         for (NameValuePair pair : objectList) {
-//            sb.append("\n").append(tempSpaceStr).append("  ..").append(pair.value).append(" = ").append(pair.name).append(".fromMap(map['").append(pair.value).append("'])");
             sb.append("\n").append(tempSpaceStr).append(fieldName).append(".").append(pair.value).append(" = ").append(pair.name).append(".fromMap(map['").append(pair.value).append("']);");
         }
         for (NameValuePair pair : listList) {
-//            sb.append("\n").append(tempSpaceStr).append("  ..").append(pair.value).append(" = ").append(pair.name).append(".fromMapList(map['").append(pair.value).append("'])");
             sb.append("\n").append(tempSpaceStr).append(fieldName).append(".").append(pair.value).append(" = ").append(pair.name).append(".fromMapList(map['").append(pair.value).append("']);");
         }
 
