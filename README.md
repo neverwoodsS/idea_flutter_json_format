@@ -478,3 +478,7 @@ it prints:
 控江路1209
 ```
 
+#### 7. gif
+
+![gif](example/jsonformat.gif)
+
