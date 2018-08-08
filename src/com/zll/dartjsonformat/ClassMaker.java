@@ -149,23 +149,23 @@ public class ClassMaker {
 
         if (childSize != 0) {
             // 构造器
-            sb.append("\n")
-                    .append(spaceStr).append(className).append("({");
-
-            for (String value : orderedList) {
-                sb.append("\n").append(tempSpaceStr).append("this.").append(value).append(",");
-            }
-            for (NameValuePair pair : objectList) {
-                sb.append("\n").append(tempSpaceStr).append("this.").append(pair.value).append(",");
-            }
-            for (NameValuePair pair : listList) {
-                sb.append("\n").append(tempSpaceStr).append("this.").append(pair.value).append(",");
-            }
-            for (NameValuePair pair : listBaseList) {
-                sb.append("\n").append(tempSpaceStr).append("this.").append(pair.value).append(",");
-            }
-
-            sb.append("\n").append(spaceStr).append("});\n");
+//            sb.append("\n")
+//                    .append(spaceStr).append(className).append("({");
+//
+//            for (String value : orderedList) {
+//                sb.append("\n").append(tempSpaceStr).append("this.").append(value).append(",");
+//            }
+//            for (NameValuePair pair : objectList) {
+//                sb.append("\n").append(tempSpaceStr).append("this.").append(pair.value).append(",");
+//            }
+//            for (NameValuePair pair : listList) {
+//                sb.append("\n").append(tempSpaceStr).append("this.").append(pair.value).append(",");
+//            }
+//            for (NameValuePair pair : listBaseList) {
+//                sb.append("\n").append(tempSpaceStr).append("this.").append(pair.value).append(",");
+//            }
+//
+//            sb.append("\n").append(spaceStr).append("});\n");
         }
 
         /* map.value 转换为对象的静态函数 start **/
