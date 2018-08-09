@@ -114,14 +114,6 @@ class Temp {
   DataBean data;
   ExtraDataBean extraData;
 
-  Temp({
-    this.code,
-    this.message,
-    this.success,
-    this.data,
-    this.extraData,
-  });
-
   static Temp fromMap(Map<String, dynamic> map) {
     return new Temp()
       ..code = map['code']
@@ -202,53 +194,6 @@ class OrderBean {
   bool isSequential;
   List<OrderStatusArrayListBean> orderStatusArray;
 
-  OrderBean({
-    this.brokerAvatar,
-    this.brokerCellphone,
-    this.brokerName,
-    this.brokerSid,
-    this.code,
-    this.cover,
-    this.createdDatetime,
-    this.deliveryAddressSid,
-    this.orderStatus,
-    this.orderStatusDesp,
-    this.orderType,
-    this.payType,
-    this.postTicketSid,
-    this.receiveDatetime,
-    this.receiver,
-    this.receiverAddress,
-    this.receiverCellphone,
-    this.receiverTitle,
-    this.remark,
-    this.requestDatetime,
-    this.showName,
-    this.showSchedule,
-    this.showScheduleSid,
-    this.showSid,
-    this.sid,
-    this.stateDesp,
-    this.ticketSid,
-    this.tradeType,
-    this.userCellphone,
-    this.userLeaveMessage,
-    this.userSid,
-    this.venueAddress,
-    this.venueName,
-    this.bidding,
-    this.brokerDealNum,
-    this.deliveryFee,
-    this.evaluateStarts,
-    this.ticketPrice,
-    this.ticketQuantity,
-    this.totalPrice,
-    this.brokerStars,
-    this.isDelete,
-    this.isSequential,
-    this.orderStatusArray,
-  });
-
   static OrderBean fromMap(Map<String, dynamic> map) {
     return new OrderBean()
       ..brokerAvatar = map['brokerAvatar']
@@ -315,16 +260,6 @@ class OrderStatusArrayListBean {
   String sid;
   String state;
 
-  OrderStatusArrayListBean({
-    this.operateDatetime,
-    this.operateUserSid,
-    this.operateUsername,
-    this.orderSid,
-    this.orderType,
-    this.sid,
-    this.state,
-  });
-
   static OrderStatusArrayListBean fromMap(Map<String, dynamic> map) {
     return new OrderStatusArrayListBean()
       ..operateDatetime = map['operateDatetime']
@@ -383,18 +318,6 @@ class ExpressAddressBean {
   String userSid;
   int sortNumber;
 
-  ExpressAddressBean({
-    this.address,
-    this.createdDatetime,
-    this.receiver,
-    this.receiverCellphone,
-    this.sid,
-    this.title,
-    this.type,
-    this.userSid,
-    this.sortNumber,
-  });
-
   static ExpressAddressBean fromMap(Map<String, dynamic> map) {
     return new ExpressAddressBean()
       ..address = map['address']
@@ -426,17 +349,6 @@ class FacetofaceAddressBean {
   String type;
   String userSid;
   int sortNumber;
-
-  FacetofaceAddressBean({
-    this.address,
-    this.receiver,
-    this.receiverCellphone,
-    this.sid,
-    this.title,
-    this.type,
-    this.userSid,
-    this.sortNumber,
-  });
 
   static FacetofaceAddressBean fromMap(Map<String, dynamic> map) {
     return new FacetofaceAddressBean()
