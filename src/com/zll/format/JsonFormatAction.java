@@ -1,4 +1,4 @@
-package com.zll.dartjsonformat;
+package com.zll.format;
 
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
