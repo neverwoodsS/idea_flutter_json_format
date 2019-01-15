@@ -1,5 +1,6 @@
 ## how to use
-#### 1. download jar (or download source code and build it yourself)
+#### 1. download jar
+https://plugins.jetbrains.com/plugin/11551-dart-json-format
 
 ![jar](example_image/jar.jpg)
 

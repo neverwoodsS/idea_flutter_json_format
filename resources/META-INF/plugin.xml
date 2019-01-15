@@ -1,13 +1,12 @@
 <idea-plugin>
-  <id>com.your.company.unique.plugin.id</id>
+  <id>com.zll.format</id>
   <name>dart_json_format</name>
   <version>1.0</version>
   <vendor email="413700858@qq.com" url="https://github.com/neverwoodsS">neverwoods</vendor>
 
-  <!--<description><![CDATA[-->
-      <!--Enter short description for your plugin here.<br>-->
-      <!--<em>most HTML tags may be used</em>-->
-    <!--]]></description>-->
+  <description>
+    Help to generate Dart data class from JSON string.
+  </description>
 
   <!--<change-notes><![CDATA[-->
       <!--Add change notes here.<br>-->
