@@ -30,7 +30,7 @@
 
   <actions>
     <!-- Add your actions here -->
-    <action id="DartJsonFormat" class="com.zll.format.JsonFormatAction" text="dart json format">
+    <action id="DartJsonFormat" class="com.zll.format.DartJsonFormatAction" text="dart json format">
       <add-to-group group-id="GenerateGroup" anchor="first"/>
       <keyboard-shortcut keymap="$default" first-keystroke="meta N"/>
     </action>
