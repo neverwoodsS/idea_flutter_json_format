@@ -2,6 +2,7 @@ package com.zll.format.ui
 
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.ui.components.JBScrollPane
+import com.zll.format.ClassGenerator
 import com.zll.format.ClassMaker
 import com.zll.format.Util
 import java.awt.event.WindowEvent
@@ -32,7 +33,8 @@ class UiBuilder(private val virtualFile: VirtualFile) {
             setBounds(600, 10, 80, 30)
             isVisible = true
             addActionListener {
-                val classesString = ClassMaker().make(jsonText.text)
+//                val classesString = ClassMaker().make(jsonText.text)
+                val classesString = ClassGenerator().generate(jsonText.text)
                 if (classesString.startsWith("error:")) {
                     tipLabel.text = classesString
                 } else {

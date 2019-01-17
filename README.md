@@ -98,7 +98,10 @@ json:
 	},
 	"extraData": {},
 	"message": "",
-	"success": true
+	"success": true,
+    "intList": [0, 1, 2, 3],
+    "boolList": [true, false, true, true],
+    "doubleList": [0.0, 1.1, 2.2, 3.3]
 }
 ```
 ![plugin](example_image/plugin.jpg)
@@ -114,14 +117,33 @@ class Temp {
   bool success;
   DataBean data;
   ExtraDataBean extraData;
+  List<bool> boolList;
+  List<double> doubleList;
+  List<int> intList;
 
   static Temp fromMap(Map<String, dynamic> map) {
-    return new Temp()
-      ..code = map['code']
-      ..message = map['message']
-      ..success = map['success']
-      ..data = DataBean.fromMap(map['data'])
-      ..extraData = ExtraDataBean.fromMap(map['extraData']);
+    Temp temp = new Temp();
+    temp.code = map['code'];
+    temp.message = map['message'];
+    temp.success = map['success'];
+    temp.data = DataBean.fromMap(map['data']);
+    temp.extraData = ExtraDataBean.fromMap(map['extraData']);
+
+    List<dynamic> dynamicList0 = map['boolList'];
+    temp.boolList = new List();
+    temp.boolList.addAll(dynamicList0.map((o) => o.toString() == 'true'));
+
+
+    List<dynamic> dynamicList1 = map['doubleList'];
+    temp.doubleList = new List();
+    temp.doubleList.addAll(dynamicList1.map((o) => double.parse(o.toString())));
+
+
+    List<dynamic> dynamicList2 = map['intList'];
+    temp.intList = new List();
+    temp.intList.addAll(dynamicList2.map((o) => int.parse(o.toString())));
+
+    return temp;
   }
 
   static List<Temp> fromMapList(dynamic mapList) {
@@ -134,14 +156,103 @@ class Temp {
 
 }
 
+class DataBean {
+  ExpressAddressBean expressAddress;
+  FacetofaceAddressBean facetofaceAddress;
+  OrderBean order;
+
+  static DataBean fromMap(Map<String, dynamic> map) {
+    DataBean dataBean = new DataBean();
+    dataBean.expressAddress = ExpressAddressBean.fromMap(map['expressAddress']);
+    dataBean.facetofaceAddress = FacetofaceAddressBean.fromMap(map['facetofaceAddress']);
+    dataBean.order = OrderBean.fromMap(map['order']);
+    return dataBean;
+  }
+
+  static List<DataBean> fromMapList(dynamic mapList) {
+    List<DataBean> list = new List(mapList.length);
+    for (int i = 0; i < mapList.length; i++) {
+      list[i] = fromMap(mapList[i]);
+    }
+    return list;
+  }
+}
+
 class ExtraDataBean {
 
   static ExtraDataBean fromMap(Map<String, dynamic> map) {
-    return new ExtraDataBean();
+    ExtraDataBean extraDataBean = new ExtraDataBean();
+    return extraDataBean;
   }
 
   static List<ExtraDataBean> fromMapList(dynamic mapList) {
     List<ExtraDataBean> list = new List(mapList.length);
+    for (int i = 0; i < mapList.length; i++) {
+      list[i] = fromMap(mapList[i]);
+    }
+    return list;
+  }
+}
+
+class ExpressAddressBean {
+  String address;
+  String createdDatetime;
+  String receiver;
+  String receiverCellphone;
+  String sid;
+  String title;
+  String type;
+  String userSid;
+  int sortNumber;
+
+  static ExpressAddressBean fromMap(Map<String, dynamic> map) {
+    ExpressAddressBean expressAddressBean = new ExpressAddressBean();
+    expressAddressBean.address = map['address'];
+    expressAddressBean.createdDatetime = map['createdDatetime'];
+    expressAddressBean.receiver = map['receiver'];
+    expressAddressBean.receiverCellphone = map['receiverCellphone'];
+    expressAddressBean.sid = map['sid'];
+    expressAddressBean.title = map['title'];
+    expressAddressBean.type = map['type'];
+    expressAddressBean.userSid = map['userSid'];
+    expressAddressBean.sortNumber = map['sortNumber'];
+    return expressAddressBean;
+  }
+
+  static List<ExpressAddressBean> fromMapList(dynamic mapList) {
+    List<ExpressAddressBean> list = new List(mapList.length);
+    for (int i = 0; i < mapList.length; i++) {
+      list[i] = fromMap(mapList[i]);
+    }
+    return list;
+  }
+}
+
+class FacetofaceAddressBean {
+  String address;
+  String receiver;
+  String receiverCellphone;
+  String sid;
+  String title;
+  String type;
+  String userSid;
+  int sortNumber;
+
+  static FacetofaceAddressBean fromMap(Map<String, dynamic> map) {
+    FacetofaceAddressBean facetofaceAddressBean = new FacetofaceAddressBean();
+    facetofaceAddressBean.address = map['address'];
+    facetofaceAddressBean.receiver = map['receiver'];
+    facetofaceAddressBean.receiverCellphone = map['receiverCellphone'];
+    facetofaceAddressBean.sid = map['sid'];
+    facetofaceAddressBean.title = map['title'];
+    facetofaceAddressBean.type = map['type'];
+    facetofaceAddressBean.userSid = map['userSid'];
+    facetofaceAddressBean.sortNumber = map['sortNumber'];
+    return facetofaceAddressBean;
+  }
+
+  static List<FacetofaceAddressBean> fromMapList(dynamic mapList) {
+    List<FacetofaceAddressBean> list = new List(mapList.length);
     for (int i = 0; i < mapList.length; i++) {
       list[i] = fromMap(mapList[i]);
     }
@@ -183,6 +294,9 @@ class OrderBean {
   String userSid;
   String venueAddress;
   String venueName;
+  bool isDelete;
+  bool isSequential;
+  double brokerStars;
   int bidding;
   int brokerDealNum;
   int deliveryFee;
@@ -190,57 +304,55 @@ class OrderBean {
   int ticketPrice;
   int ticketQuantity;
   int totalPrice;
-  double brokerStars;
-  bool isDelete;
-  bool isSequential;
   List<OrderStatusArrayListBean> orderStatusArray;
 
   static OrderBean fromMap(Map<String, dynamic> map) {
-    return new OrderBean()
-      ..brokerAvatar = map['brokerAvatar']
-      ..brokerCellphone = map['brokerCellphone']
-      ..brokerName = map['brokerName']
-      ..brokerSid = map['brokerSid']
-      ..code = map['code']
-      ..cover = map['cover']
-      ..createdDatetime = map['createdDatetime']
-      ..deliveryAddressSid = map['deliveryAddressSid']
-      ..orderStatus = map['orderStatus']
-      ..orderStatusDesp = map['orderStatusDesp']
-      ..orderType = map['orderType']
-      ..payType = map['payType']
-      ..postTicketSid = map['postTicketSid']
-      ..receiveDatetime = map['receiveDatetime']
-      ..receiver = map['receiver']
-      ..receiverAddress = map['receiverAddress']
-      ..receiverCellphone = map['receiverCellphone']
-      ..receiverTitle = map['receiverTitle']
-      ..remark = map['remark']
-      ..requestDatetime = map['requestDatetime']
-      ..showName = map['showName']
-      ..showSchedule = map['showSchedule']
-      ..showScheduleSid = map['showScheduleSid']
-      ..showSid = map['showSid']
-      ..sid = map['sid']
-      ..stateDesp = map['stateDesp']
-      ..ticketSid = map['ticketSid']
-      ..tradeType = map['tradeType']
-      ..userCellphone = map['userCellphone']
-      ..userLeaveMessage = map['userLeaveMessage']
-      ..userSid = map['userSid']
-      ..venueAddress = map['venueAddress']
-      ..venueName = map['venueName']
-      ..bidding = map['bidding']
-      ..brokerDealNum = map['brokerDealNum']
-      ..deliveryFee = map['deliveryFee']
-      ..evaluateStarts = map['evaluateStarts']
-      ..ticketPrice = map['ticketPrice']
-      ..ticketQuantity = map['ticketQuantity']
-      ..totalPrice = map['totalPrice']
-      ..brokerStars = map['brokerStars']
-      ..isDelete = map['isDelete']
-      ..isSequential = map['isSequential']
-      ..orderStatusArray = OrderStatusArrayListBean.fromMapList(map['orderStatusArray']);
+    OrderBean orderBean = new OrderBean();
+    orderBean.brokerAvatar = map['brokerAvatar'];
+    orderBean.brokerCellphone = map['brokerCellphone'];
+    orderBean.brokerName = map['brokerName'];
+    orderBean.brokerSid = map['brokerSid'];
+    orderBean.code = map['code'];
+    orderBean.cover = map['cover'];
+    orderBean.createdDatetime = map['createdDatetime'];
+    orderBean.deliveryAddressSid = map['deliveryAddressSid'];
+    orderBean.orderStatus = map['orderStatus'];
+    orderBean.orderStatusDesp = map['orderStatusDesp'];
+    orderBean.orderType = map['orderType'];
+    orderBean.payType = map['payType'];
+    orderBean.postTicketSid = map['postTicketSid'];
+    orderBean.receiveDatetime = map['receiveDatetime'];
+    orderBean.receiver = map['receiver'];
+    orderBean.receiverAddress = map['receiverAddress'];
+    orderBean.receiverCellphone = map['receiverCellphone'];
+    orderBean.receiverTitle = map['receiverTitle'];
+    orderBean.remark = map['remark'];
+    orderBean.requestDatetime = map['requestDatetime'];
+    orderBean.showName = map['showName'];
+    orderBean.showSchedule = map['showSchedule'];
+    orderBean.showScheduleSid = map['showScheduleSid'];
+    orderBean.showSid = map['showSid'];
+    orderBean.sid = map['sid'];
+    orderBean.stateDesp = map['stateDesp'];
+    orderBean.ticketSid = map['ticketSid'];
+    orderBean.tradeType = map['tradeType'];
+    orderBean.userCellphone = map['userCellphone'];
+    orderBean.userLeaveMessage = map['userLeaveMessage'];
+    orderBean.userSid = map['userSid'];
+    orderBean.venueAddress = map['venueAddress'];
+    orderBean.venueName = map['venueName'];
+    orderBean.isDelete = map['isDelete'];
+    orderBean.isSequential = map['isSequential'];
+    orderBean.brokerStars = map['brokerStars'];
+    orderBean.bidding = map['bidding'];
+    orderBean.brokerDealNum = map['brokerDealNum'];
+    orderBean.deliveryFee = map['deliveryFee'];
+    orderBean.evaluateStarts = map['evaluateStarts'];
+    orderBean.ticketPrice = map['ticketPrice'];
+    orderBean.ticketQuantity = map['ticketQuantity'];
+    orderBean.totalPrice = map['totalPrice'];
+    orderBean.orderStatusArray = OrderStatusArrayListBean.fromMapList(map['orderStatusArray']);
+    return orderBean;
   }
 
   static List<OrderBean> fromMapList(dynamic mapList) {
@@ -262,14 +374,15 @@ class OrderStatusArrayListBean {
   String state;
 
   static OrderStatusArrayListBean fromMap(Map<String, dynamic> map) {
-    return new OrderStatusArrayListBean()
-      ..operateDatetime = map['operateDatetime']
-      ..operateUserSid = map['operateUserSid']
-      ..operateUsername = map['operateUsername']
-      ..orderSid = map['orderSid']
-      ..orderType = map['orderType']
-      ..sid = map['sid']
-      ..state = map['state'];
+    OrderStatusArrayListBean orderStatusArrayListBean = new OrderStatusArrayListBean();
+    orderStatusArrayListBean.operateDatetime = map['operateDatetime'];
+    orderStatusArrayListBean.operateUserSid = map['operateUserSid'];
+    orderStatusArrayListBean.operateUsername = map['operateUsername'];
+    orderStatusArrayListBean.orderSid = map['orderSid'];
+    orderStatusArrayListBean.orderType = map['orderType'];
+    orderStatusArrayListBean.sid = map['sid'];
+    orderStatusArrayListBean.state = map['state'];
+    return orderStatusArrayListBean;
   }
 
   static List<OrderStatusArrayListBean> fromMapList(dynamic mapList) {
@@ -280,98 +393,6 @@ class OrderStatusArrayListBean {
     return list;
   }
 }
-
-class DataBean {
-  ExpressAddressBean expressAddress;
-  FacetofaceAddressBean facetofaceAddress;
-  OrderBean order;
-
-  DataBean({
-    this.expressAddress,
-    this.facetofaceAddress,
-    this.order,
-  });
-
-  static DataBean fromMap(Map<String, dynamic> map) {
-    return new DataBean()
-      ..expressAddress = ExpressAddressBean.fromMap(map['expressAddress'])
-      ..facetofaceAddress = FacetofaceAddressBean.fromMap(map['facetofaceAddress'])
-      ..order = OrderBean.fromMap(map['order']);
-  }
-
-  static List<DataBean> fromMapList(dynamic mapList) {
-    List<DataBean> list = new List(mapList.length);
-    for (int i = 0; i < mapList.length; i++) {
-      list[i] = fromMap(mapList[i]);
-    }
-    return list;
-  }
-}
-
-class ExpressAddressBean {
-  String address;
-  String createdDatetime;
-  String receiver;
-  String receiverCellphone;
-  String sid;
-  String title;
-  String type;
-  String userSid;
-  int sortNumber;
-
-  static ExpressAddressBean fromMap(Map<String, dynamic> map) {
-    return new ExpressAddressBean()
-      ..address = map['address']
-      ..createdDatetime = map['createdDatetime']
-      ..receiver = map['receiver']
-      ..receiverCellphone = map['receiverCellphone']
-      ..sid = map['sid']
-      ..title = map['title']
-      ..type = map['type']
-      ..userSid = map['userSid']
-      ..sortNumber = map['sortNumber'];
-  }
-
-  static List<ExpressAddressBean> fromMapList(dynamic mapList) {
-    List<ExpressAddressBean> list = new List(mapList.length);
-    for (int i = 0; i < mapList.length; i++) {
-      list[i] = fromMap(mapList[i]);
-    }
-    return list;
-  }
-}
-
-class FacetofaceAddressBean {
-  String address;
-  String receiver;
-  String receiverCellphone;
-  String sid;
-  String title;
-  String type;
-  String userSid;
-  int sortNumber;
-
-  static FacetofaceAddressBean fromMap(Map<String, dynamic> map) {
-    return new FacetofaceAddressBean()
-      ..address = map['address']
-      ..receiver = map['receiver']
-      ..receiverCellphone = map['receiverCellphone']
-      ..sid = map['sid']
-      ..title = map['title']
-      ..type = map['type']
-      ..userSid = map['userSid']
-      ..sortNumber = map['sortNumber'];
-  }
-
-  static List<FacetofaceAddressBean> fromMapList(dynamic mapList) {
-    List<FacetofaceAddressBean> list = new List(mapList.length);
-    for (int i = 0; i < mapList.length; i++) {
-      list[i] = fromMap(mapList[i]);
-    }
-    return list;
-  }
-}
-
 ```
 
 
