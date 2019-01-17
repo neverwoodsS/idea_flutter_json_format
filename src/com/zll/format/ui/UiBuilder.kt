@@ -4,9 +4,12 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.ui.components.JBScrollPane
 import com.zll.format.ClassMaker
 import com.zll.format.Util
+import java.awt.event.WindowEvent
 import javax.swing.*
 
 class UiBuilder(private val virtualFile: VirtualFile) {
+
+    var frame: JFrame? = null
 
     fun build(): JComponent {
         return JPanel().apply {
@@ -14,8 +17,8 @@ class UiBuilder(private val virtualFile: VirtualFile) {
         }
     }
 
-    private fun placeComponents(panel: JPanel) {
-        panel.layout = null
+    private fun placeComponents(panel: JPanel) = panel.apply {
+        layout = null
 
         val tipLabel = JLabel("input your json and click ok, \ndart class contents will be copied to Clipboard").apply {
             setBounds(10, 0, 500, 40)
@@ -25,7 +28,7 @@ class UiBuilder(private val virtualFile: VirtualFile) {
             setBounds(0,50,700,400)
         }
 
-        panel.add(JButton("ok").apply {
+        add(JButton("ok").apply {
             setBounds(600, 10, 80, 30)
             isVisible = true
             addActionListener {
@@ -35,16 +38,17 @@ class UiBuilder(private val virtualFile: VirtualFile) {
                 } else {
 //                    Util.setSysClipboardText(classesString) // 复制到粘贴板
                     Util.writeToFile(virtualFile, classesString)
+                    frame?.dispose()
                 }
             }
         })
 
-        panel.add(JBScrollPane(jsonText).apply {
+        add(JBScrollPane(jsonText).apply {
             verticalScrollBarPolicy = JBScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED
             horizontalScrollBarPolicy = JBScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED
             setBounds(0, 50, 700, 400)
         })
 
-        panel.add(tipLabel)
+        add(tipLabel)
     }
 }

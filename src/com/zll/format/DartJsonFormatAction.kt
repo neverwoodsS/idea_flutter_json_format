@@ -14,14 +14,14 @@ class DartJsonFormatAction : AnAction() {
         PsiUtilBase.getPsiFileInEditor(event.getData(PlatformDataKeys.EDITOR) as Editor,
                 event.getData(PlatformDataKeys.PROJECT) as Project)
                 ?.let { it.virtualFile }
-                ?.let { UiBuilder(it).build() }
+                ?.let { UiBuilder(it) }
                 ?.let {
                     JFrame("dart json format").apply {
                         setSize(700, 470)
                         defaultCloseOperation = JFrame.DISPOSE_ON_CLOSE
-                        add(it)
+                        add(it.build())
                         isVisible = true
-                    }
+                    }.apply { it.frame = this }
                 }
     }
 }
