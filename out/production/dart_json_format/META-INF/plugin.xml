@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>com.zll.format</id>
   <name>dart_json_format</name>
-  <version>1.0</version>
+  <version>1.1</version>
   <vendor email="413700858@qq.com" url="https://github.com/neverwoodsS">neverwoods</vendor>
 
   <description>
