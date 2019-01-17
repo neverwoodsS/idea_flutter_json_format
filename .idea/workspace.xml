@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="500ef166-4131-4507-b10a-50755ff559ca" name="Default" comment="replace ClassMaker(Java) with ClassGenerator(Kotlin)">
+    <list default="true" id="500ef166-4131-4507-b10a-50755ff559ca" name="Default" comment="rebuild jar; update version to 1.1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -46,11 +46,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/zll/format/TestGenerate.kt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="315">
-              <caret line="21" column="54" lean-forward="true" selection-start-line="21" selection-start-column="54" selection-end-line="21" selection-end-column="54" />
+              <caret line="21" column="40" lean-forward="true" selection-start-line="21" selection-start-column="40" selection-end-line="21" selection-end-column="40" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/META-INF/plugin.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
             </state>
           </provider>
         </entry>
@@ -132,7 +141,6 @@
         <option value="$PROJECT_DIR$/src/com/zll/format/JsonFormatAction.java" />
         <option value="$PROJECT_DIR$/out/production/dart_json_format/META-INF/plugin.xml" />
         <option value="$PROJECT_DIR$/src/com/zll/format/NameValuePair.java" />
-        <option value="$PROJECT_DIR$/resources/META-INF/plugin.xml" />
         <option value="$PROJECT_DIR$/src/com/zll/format/Util.java" />
         <option value="$PROJECT_DIR$/src/com/zll/format/ClassMaker.java" />
         <option value="$PROJECT_DIR$/src/com/zll/format/TestGenerate.kt" />
@@ -140,6 +148,7 @@
         <option value="$PROJECT_DIR$/src/com/zll/format/ui/UiBuilder.kt" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/com/zll/format/DartJsonFormatAction.kt" />
+        <option value="$PROJECT_DIR$/resources/META-INF/plugin.xml" />
       </list>
     </option>
   </component>
@@ -151,8 +160,8 @@
     <option name="CUSTOM_FILTER" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="196" />
-    <option name="y" value="109" />
+    <option name="x" value="184" />
+    <option name="y" value="159" />
     <option name="width" value="1920" />
     <option name="height" value="1113" />
   </component>
@@ -191,7 +200,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547712660024" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547712995034" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -499,12 +508,18 @@
       <option name="project" value="LOCAL" />
       <updated>1547711904193</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="rebuild jar; update version to 1.1">
+      <created>1547712689087</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1547712689087</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="196" y="109" width="1920" height="1113" extended-state="0" />
-    <editor active="true" />
+    <frame x="184" y="159" width="1920" height="1113" extended-state="0" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28061768" />
       <window_info id="Structure" order="1" weight="0.25" />
@@ -551,7 +566,8 @@
     <MESSAGE value="add jar" />
     <MESSAGE value="dispose JFrame when generate success" />
     <MESSAGE value="replace ClassMaker(Java) with ClassGenerator(Kotlin)" />
-    <option name="LAST_COMMIT_MESSAGE" value="replace ClassMaker(Java) with ClassGenerator(Kotlin)" />
+    <MESSAGE value="rebuild jar; update version to 1.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="rebuild jar; update version to 1.1" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -630,13 +646,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="19" column="30" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/META-INF/plugin.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="15" lean-forward="true" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="15" />
         </state>
       </provider>
     </entry>
@@ -754,7 +763,14 @@
     <entry file="file://$PROJECT_DIR$/src/com/zll/format/TestGenerate.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
-          <caret line="21" column="54" lean-forward="true" selection-start-line="21" selection-start-column="54" selection-end-line="21" selection-end-column="54" />
+          <caret line="21" column="40" lean-forward="true" selection-start-line="21" selection-start-column="40" selection-end-line="21" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/META-INF/plugin.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
         </state>
       </provider>
     </entry>
