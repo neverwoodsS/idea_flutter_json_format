@@ -32,7 +32,7 @@ class UiBuilder(private val virtualFile: VirtualFile) {
             isVisible = true
             addActionListener {
 //                val classesString = ClassMaker().make(jsonText.text)
-                val classesString = ClassGenerator().generate(jsonText.text)
+                val classesString = ClassGenerator().generate(Util.toUpperCaseFirstOne(virtualFile.nameWithoutExtension), jsonText.text)
                 if (classesString.startsWith("error:")) {
                     tipLabel.text = classesString
                 } else {

@@ -8,10 +8,10 @@ import java.util.HashMap
 class ClassGenerator {
     val classes = mutableMapOf<String, List<Param>>()
 
-    fun generate(string: String): String {
+    fun generate(name: String, string: String): String {
         return try {
             val fields = Param.json2Params(JsonParser().parse(string).asJsonObject)
-            "class Temp {\n${printClassWithParams(fields, 2, "Temp")}\n}\n${buildClasses()}"
+            "class $name {\n${printClassWithParams(fields, 2, name)}\n}\n${buildClasses()}"
         } catch (jsonParseException: JsonParseException) {
             jsonParseException.printStackTrace()
             "error: not supported json"
