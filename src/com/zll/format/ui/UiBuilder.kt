@@ -17,22 +17,29 @@ class UiBuilder(private val virtualFile: VirtualFile) {
     }
 
     private fun placeComponents(panel: JPanel) = panel.apply {
+        val className = Util.toUpperCaseFirstOne(virtualFile.nameWithoutExtension)
+
         layout = null
 
-        val tipLabel = JLabel("input your json and click ok, \ndart class contents will be copied to Clipboard").apply {
+        val tipLabel = JLabel("class name: $className").apply {
             setBounds(10, 0, 500, 40)
         }
 
         val jsonText = JTextArea().apply {
-            setBounds(0,50,700,400)
+            setBounds(10,50,680,400)
+        }
+
+        val checkBox = JCheckBox("Generate Comments", true).apply {
+            setBounds(10, 460, 200, 30)
+
         }
 
         add(JButton("ok").apply {
-            setBounds(600, 10, 80, 30)
+            setBounds(600, 460, 80, 30)
             isVisible = true
             addActionListener {
 //                val classesString = ClassMaker().make(jsonText.text)
-                val classesString = ClassGenerator().generate(Util.toUpperCaseFirstOne(virtualFile.nameWithoutExtension), jsonText.text)
+                val classesString = ClassGenerator(checkBox.isSelected).generate(className, jsonText.text)
                 if (classesString.startsWith("error:")) {
                     tipLabel.text = classesString
                 } else {
@@ -46,9 +53,10 @@ class UiBuilder(private val virtualFile: VirtualFile) {
         add(JBScrollPane(jsonText).apply {
             verticalScrollBarPolicy = JBScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED
             horizontalScrollBarPolicy = JBScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED
-            setBounds(0, 50, 700, 400)
+            setBounds(10, 50, 680, 400)
         })
 
+        add(checkBox)
         add(tipLabel)
     }
 }

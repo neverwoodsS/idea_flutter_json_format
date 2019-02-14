@@ -17,7 +17,7 @@ class DartJsonFormatAction : AnAction() {
                 ?.let { UiBuilder(it) }
                 ?.let {
                     JFrame("dart json format").apply {
-                        setSize(700, 470)
+                        setSize(700, 520)
                         defaultCloseOperation = JFrame.DISPOSE_ON_CLOSE
                         add(it.build())
                         isVisible = true

@@ -5,7 +5,7 @@ import com.google.gson.JsonParser
 import java.lang.IllegalStateException
 import java.util.HashMap
 
-class ClassGenerator {
+class ClassGenerator(private val generateComments: Boolean) {
     val classes = mutableMapOf<String, List<Param>>()
 
     fun generate(name: String, string: String): String {
@@ -26,7 +26,7 @@ class ClassGenerator {
         }
     }
 
-    private fun printClassWithParams(params: List<Param>, space: Int, className: String, needComments: Boolean = true): String {
+    private fun printClassWithParams(params: List<Param>, space: Int, className: String): String {
         val commentSb = StringBuilder()
         val sb = StringBuilder()
 
@@ -37,7 +37,7 @@ class ClassGenerator {
 
         val commentPrefix = "$spaceStr *"
         fun List<Param>.insertComment(): List<Param>  {
-            return if (needComments) this.map {
+            return if (generateComments) this.map {
                 commentSb.append(commentPrefix).append(" ${it.comment}\n")
                 it
             } else this
