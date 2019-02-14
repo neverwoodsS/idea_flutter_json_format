@@ -1,3 +1,12 @@
+## update ver 1.3 
+now you are able to generate comments
+
+## update ver 1.2
+name root class after filename
+
+## update ver 1.1
+auto dispose jframe when job done
+
 ## how to use
 #### 1. download jar
 https://plugins.jetbrains.com/plugin/11551-dart-json-format
@@ -12,7 +21,7 @@ https://plugins.jetbrains.com/plugin/11551-dart-json-format
 
 ![file](example_image/file.jpg)
 
-#### 4. choose "flutter json format", then put your json in
+#### 4. choose "dart json format", then put your json in
 
 json:
 
