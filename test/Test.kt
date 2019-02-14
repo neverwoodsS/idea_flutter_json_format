@@ -3,5 +3,5 @@ import java.io.File
 
 fun main(args: Array<String>) {
     val json = File("test/test.json").readText()
-    println(ClassGenerator().generate(json))
+    println(ClassGenerator().generate("Temp", json))
 }

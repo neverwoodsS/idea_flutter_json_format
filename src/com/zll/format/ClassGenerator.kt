@@ -26,7 +26,8 @@ class ClassGenerator {
         }
     }
 
-    private fun printClassWithParams(params: List<Param>, space: Int, className: String): String {
+    private fun printClassWithParams(params: List<Param>, space: Int, className: String, needComments: Boolean = true): String {
+        val commentSb = StringBuilder()
         val sb = StringBuilder()
 
         val tempClasses = HashMap<String, List<Param>>() // 统计子类
@@ -34,10 +35,19 @@ class ClassGenerator {
         var spaceStr = ""
         repeat(space) { spaceStr += " " }
 
+        val commentPrefix = "$spaceStr *"
+        fun List<Param>.insertComment(): List<Param>  {
+            return if (needComments) this.map {
+                commentSb.append(commentPrefix).append(" ${it.comment}\n")
+                it
+            } else this
+        }
+
         /* 基本类型参数声明与统计 **/
         val orderedList = params
                 .filter { it.key == "String" || it.key == "int" || it.key == "double" || it.key == "bool" }
                 .sortedBy { it.key }
+                .insertComment()
                 .map {
                     sb.append("$spaceStr${it.key} ${it.value};\n")
                     it.value
@@ -47,6 +57,7 @@ class ClassGenerator {
         val objectList = params
                 .filter { it.key == "object" }
                 .sortedBy { it.value }
+                .insertComment()
                 .map {
                     val clazzName = Util.toUpperCaseFirstOne(it.value + "Bean")
                     classes[clazzName] =  it.clazz
@@ -59,6 +70,7 @@ class ClassGenerator {
         val listBaseList = params
                 .filter { it.key.startsWith("List<") }
                 .sortedBy { it.value }
+                .insertComment()
                 .map {
                     sb.append(spaceStr).append(it.key).append(" ").append(it.value).append(";").append("\n")
                     NameValuePair(it.key, it.value)
@@ -68,6 +80,7 @@ class ClassGenerator {
         val listList = params
                 .filter { "list" == it.key }
                 .sortedBy { it.value }
+                .insertComment()
                 .map {
                     val clazzName = Util.toUpperCaseFirstOne(it.value + "ListBean")
                     classes[clazzName] = it.clazz
@@ -137,7 +150,13 @@ class ClassGenerator {
             printClassWithParams(value, space + 2, key)
         }
 
-        return sb.toString()
+        val commentString = if (commentSb.toString().isBlank() || commentSb.isEmpty()) {
+            ""
+        } else {
+            "\n$spaceStr/**\n$commentSb$spaceStr */\n\n"
+        }
+
+        return "$commentString$sb"
     }
 
     private fun buildClasses(): String {
