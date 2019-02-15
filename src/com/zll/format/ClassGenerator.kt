@@ -117,16 +117,16 @@ class ClassGenerator(private val generateComments: Boolean, private val ignoreEm
             sb.append("\n").append(tempSpaceStr).append(fieldName).append(".").append(it).append(" = ").append("map['").append(it).append("'];")
         }
 
+        dynamiclist?.forEach {
+            sb.append("\n").append(tempSpaceStr).append(fieldName).append(".").append(it.value).append(" = ").append("map['").append(it.value).append("'];");
+        }
+
         objectList.forEach {
             sb.append("\n").append(tempSpaceStr).append(fieldName).append(".").append(it.value).append(" = ").append(it.name).append(".fromMap(map['").append(it.value).append("']);")
         }
 
         listList.forEach {
             sb.append("\n").append(tempSpaceStr).append(fieldName).append(".").append(it.value).append(" = ").append(it.name).append(".fromMapList(map['").append(it.value).append("']);")
-        }
-
-        dynamiclist?.forEach {
-            sb.append("\n").append(tempSpaceStr).append(fieldName).append(".").append(it.value).append(" = ").append("map['").append(it.value).append("'];");
         }
 
         /* map.value 转换为基础类型 list start **/
