@@ -79,10 +79,12 @@ class ClassGenerator(private val generateComments: Boolean) {
         /* 对象类型 list 参数声明与统计 **/
         val listList = params
                 .filter { "list" == it.key }
+                .filter { it.clazz != null }
                 .sortedBy { it.value }
                 .insertComment()
                 .map {
                     val clazzName = Util.toUpperCaseFirstOne(it.value + "ListBean")
+                    println(it.value)
                     classes[clazzName] = it.clazz
                     tempClasses[clazzName] = it.clazz
                     sb.append(spaceStr).append("List<").append(clazzName).append(">").append(" ").append(it.value).append(";").append("\n")
