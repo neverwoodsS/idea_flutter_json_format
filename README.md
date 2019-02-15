@@ -1,5 +1,6 @@
 ## update ver 1.4
-fix bug: error caused by empty array
+fix bug: error caused by empty array,
+
 solution: ignore empty array
 
 ## update ver 1.3
