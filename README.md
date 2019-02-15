@@ -1,4 +1,8 @@
-## update ver 1.3 
+## update ver 1.4
+fix bug: error caused by empty array
+solution: ignore empty array
+
+## update ver 1.3
 now you are able to generate comments
 
 ## update ver 1.2
