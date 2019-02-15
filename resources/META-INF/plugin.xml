@@ -9,8 +9,8 @@
   </description>
 
   <change-notes>
-    fix bug: error caused by empty array
-    solution: ignore empty array
+    fix bug: error caused by empty array,
+    solution: ignore empty array, or regard it as dynamic type
   </change-notes>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->

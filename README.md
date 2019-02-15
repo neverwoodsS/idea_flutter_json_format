@@ -1,7 +1,7 @@
 ## update ver 1.4
 fix bug: error caused by empty array,
 
-solution: ignore empty array
+solution: ignore empty array, or regard it as dynamic type
 
 ## update ver 1.3
 now you are able to generate comments
