@@ -5,7 +5,7 @@ import com.google.gson.JsonParser
 import java.lang.IllegalStateException
 import java.util.HashMap
 
-class ClassGenerator(private val generateComments: Boolean) {
+class ClassGenerator(private val generateComments: Boolean, private val ignoreEmptyOrNull: Boolean) {
     val classes = mutableMapOf<String, List<Param>>()
 
     fun generate(name: String, string: String): String {
@@ -45,7 +45,7 @@ class ClassGenerator(private val generateComments: Boolean) {
 
         /* 基本类型参数声明与统计 **/
         val orderedList = params
-                .filter { it.key == "String" || it.key == "int" || it.key == "double" || it.key == "bool" }
+                .filter { it.key == "String" || it.key == "int" || it.key == "double" || it.key == "bool" || (!ignoreEmptyOrNull && it.key == "dynamic") }
                 .sortedBy { it.key }
                 .insertComment()
                 .map {
@@ -69,6 +69,7 @@ class ClassGenerator(private val generateComments: Boolean) {
         /* 基本类型 list 参数声明与统计 **/
         val listBaseList = params
                 .filter { it.key.startsWith("List<") }
+                .filterNot { it.key.contains("null") }
                 .sortedBy { it.value }
                 .insertComment()
                 .map {
@@ -84,12 +85,24 @@ class ClassGenerator(private val generateComments: Boolean) {
                 .insertComment()
                 .map {
                     val clazzName = Util.toUpperCaseFirstOne(it.value + "ListBean")
-                    println(it.value)
                     classes[clazzName] = it.clazz
                     tempClasses[clazzName] = it.clazz
                     sb.append(spaceStr).append("List<").append(clazzName).append(">").append(" ").append(it.value).append(";").append("\n")
                     NameValuePair(clazzName, it.value)
                 }
+
+        /* dynamic list **/
+        var dynamiclist: List<NameValuePair>? = null
+        if (!ignoreEmptyOrNull) {
+            dynamiclist = params
+                    .filter { it.key == "dynamicList" }
+                    .sortedBy { it.value }
+                    .insertComment()
+                    .map {
+                        sb.append(spaceStr).append("List<dynamic>").append(" ").append(it.value).append(";").append("\n")
+                        NameValuePair(it.key, it.value)
+                    }
+        }
 
         val tempSpaceStr = "$spaceStr  "
 
@@ -112,9 +125,14 @@ class ClassGenerator(private val generateComments: Boolean) {
             sb.append("\n").append(tempSpaceStr).append(fieldName).append(".").append(it.value).append(" = ").append(it.name).append(".fromMapList(map['").append(it.value).append("']);")
         }
 
+        dynamiclist?.forEach {
+            sb.append("\n").append(tempSpaceStr).append(fieldName).append(".").append(it.value).append(" = ").append("map['").append(it.value).append("'];");
+        }
+
         /* map.value 转换为基础类型 list start **/
-        for ((count, pair) in listBaseList.withIndex()) {
+        if (listBaseList.isNotEmpty())
             sb.append("\n")
+        for ((count, pair) in listBaseList.withIndex()) {
             sb.append("\n").append(tempSpaceStr).append("List<dynamic> dynamicList").append(count).append(" = map['").append(pair.value).append("'];")
             sb.append("\n").append(tempSpaceStr).append(fieldName).append(".").append(pair.value).append(" = new List();")
 

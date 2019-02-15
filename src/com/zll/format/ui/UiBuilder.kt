@@ -29,9 +29,12 @@ class UiBuilder(private val virtualFile: VirtualFile) {
             setBounds(10,50,680,400)
         }
 
-        val checkBox = JCheckBox("Generate Comments", true).apply {
+        val commentCb = JCheckBox("generate comments", true).apply {
             setBounds(10, 460, 200, 30)
+        }
 
+        val ignoreCb = JCheckBox("ignore null or empty array", true).apply {
+            setBounds(240, 460, 200, 30)
         }
 
         add(JButton("ok").apply {
@@ -39,7 +42,7 @@ class UiBuilder(private val virtualFile: VirtualFile) {
             isVisible = true
             addActionListener {
 //                val classesString = ClassMaker().make(jsonText.text)
-                val classesString = ClassGenerator(checkBox.isSelected).generate(className, jsonText.text)
+                val classesString = ClassGenerator(commentCb.isSelected, ignoreCb.isSelected).generate(className, jsonText.text)
                 if (classesString.startsWith("error:")) {
                     tipLabel.text = classesString
                 } else {
@@ -56,7 +59,8 @@ class UiBuilder(private val virtualFile: VirtualFile) {
             setBounds(10, 50, 680, 400)
         })
 
-        add(checkBox)
+        add(commentCb)
+        add(ignoreCb)
         add(tipLabel)
     }
 }

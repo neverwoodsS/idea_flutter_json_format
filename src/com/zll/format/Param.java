@@ -24,6 +24,10 @@ public class Param {
      * @return
      */
     public static Param makeParam(String key, Object object) {
+        if (object == null || "null".equals(object.toString())) {
+            return new Param("dynamic", key, null, object);
+        }
+
         if (object instanceof JsonObject) {
             JsonObject jsonObject = (JsonObject) object;
             return new Param("object", key, json2Params(jsonObject), jsonObject);
@@ -35,10 +39,13 @@ public class Param {
                     return new Param("list", key, json2Params(jsonArray.get(0).getAsJsonObject()), jsonArray);
                 } else {
                     Param temp = makeParam("placeholder", obj);
+                    if (temp.key.equals("dynamic")) {
+                        return new Param("dynamicList", key, null, object);
+                    }
                     return new Param("List<" + temp.key + ">", key, null, object);
                 }
             } else {
-                return new Param("list", key, null, null);
+                return new Param("dynamicList", key, null, object);
             }
         } else if (tryParseBoolean(object)) {
             return new Param("bool", key, null, "true".equals(object.toString()));

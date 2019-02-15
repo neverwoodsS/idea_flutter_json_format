@@ -82,5 +82,8 @@
   "success": true,
   "intList": [0, 1, 2, 3],
   "boolList": [true, false, true, true],
-  "doubleList": [0.0, 1.1, 2.2, 3.3]
+  "doubleList": [0.0, 1.1, 2.2, 3.3],
+  "emptyList": [],
+  "nullList": [null],
+  "nullObj": null
 }

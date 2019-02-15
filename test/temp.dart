@@ -9,6 +9,8 @@ class Temp {
    * boolList : [true,false,true,true]
    * doubleList : [0.0,1.1,2.2,3.3]
    * intList : [0,1,2,3]
+   * emptyList : []
+   * nullList : [null]
    */
 
   String code;
@@ -19,6 +21,8 @@ class Temp {
   List<bool> boolList;
   List<double> doubleList;
   List<int> intList;
+  List<dynamic> emptyList;
+  List<dynamic> nullList;
 
   static Temp fromMap(Map<String, dynamic> map) {
     Temp temp = new Temp();
@@ -27,6 +31,8 @@ class Temp {
     temp.success = map['success'];
     temp.data = DataBean.fromMap(map['data']);
     temp.extraData = ExtraDataBean.fromMap(map['extraData']);
+    temp.emptyList = map['emptyList'];
+    temp.nullList = map['nullList'];
 
     List<dynamic> dynamicList0 = map['boolList'];
     temp.boolList = new List();
@@ -70,7 +76,8 @@ class DataBean {
   static DataBean fromMap(Map<String, dynamic> map) {
     DataBean dataBean = new DataBean();
     dataBean.expressAddress = ExpressAddressBean.fromMap(map['expressAddress']);
-    dataBean.facetofaceAddress = FacetofaceAddressBean.fromMap(map['facetofaceAddress']);
+    dataBean.facetofaceAddress =
+        FacetofaceAddressBean.fromMap(map['facetofaceAddress']);
     dataBean.order = OrderBean.fromMap(map['order']);
     return dataBean;
   }
@@ -330,7 +337,8 @@ class OrderBean {
     orderBean.ticketPrice = map['ticketPrice'];
     orderBean.ticketQuantity = map['ticketQuantity'];
     orderBean.totalPrice = map['totalPrice'];
-    orderBean.orderStatusArray = OrderStatusArrayListBean.fromMapList(map['orderStatusArray']);
+    orderBean.orderStatusArray =
+        OrderStatusArrayListBean.fromMapList(map['orderStatusArray']);
     return orderBean;
   }
 
