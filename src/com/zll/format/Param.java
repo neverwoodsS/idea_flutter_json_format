@@ -37,6 +37,8 @@ public class Param {
                 Object obj = jsonArray.get(0);
                 if (obj instanceof JsonObject) {
                     return new Param("list", key, json2Params(jsonArray.get(0).getAsJsonObject()), jsonArray);
+                } else if (obj instanceof JsonArray) {
+                    return new Param("dynamic", key, null, object);
                 } else {
                     Param temp = makeParam("placeholder", obj);
                     if (temp.key.equals("dynamic")) {
