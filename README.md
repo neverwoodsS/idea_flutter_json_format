@@ -1,3 +1,8 @@
+## update ver 1.5
+fix bug: error caused by nested array.
+
+solution: regard it as dynamic array.
+
 ## update ver 1.4
 fix bug: error caused by empty array,
 

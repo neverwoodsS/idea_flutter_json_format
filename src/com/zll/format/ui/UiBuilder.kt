@@ -1,13 +1,14 @@
 package com.zll.format.ui
 
 import com.intellij.ide.util.PropertiesComponent
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.ui.components.JBScrollPane
 import com.zll.format.ClassGenerator
 import com.zll.format.Util
 import javax.swing.*
 
-class UiBuilder(private val virtualFile: VirtualFile) {
+class UiBuilder(private val project: Project, private val virtualFile: VirtualFile) {
 
     companion object {
         const val KEY_COMMENT = "dart_json_format_comment"
@@ -54,7 +55,7 @@ class UiBuilder(private val virtualFile: VirtualFile) {
                     tipLabel.text = classesString
                 } else {
 //                    Util.setSysClipboardText(classesString) // 复制到粘贴板
-                    Util.writeToFile(virtualFile, classesString)
+                    Util.writeToFile(project, virtualFile, classesString)
                     frame?.dispose()
                 }
             }

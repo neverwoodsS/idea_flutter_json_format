@@ -13,8 +13,7 @@ class DartJsonFormatAction : AnAction() {
     override fun actionPerformed(event: AnActionEvent) {
         PsiUtilBase.getPsiFileInEditor(event.getData(PlatformDataKeys.EDITOR) as Editor,
                 event.getData(PlatformDataKeys.PROJECT) as Project)
-                ?.let { it.virtualFile }
-                ?.let { UiBuilder(it) }
+                ?.let { UiBuilder(it.project, it.virtualFile) }
                 ?.let {
                     JFrame("dart json format").apply {
                         setSize(700, 520)

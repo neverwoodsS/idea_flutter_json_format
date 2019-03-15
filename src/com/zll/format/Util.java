@@ -1,5 +1,7 @@
 package com.zll.format;
 
+import com.intellij.openapi.command.WriteCommandAction;
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -37,11 +39,15 @@ public class Util {
     }
 
     // 将 string 写入文件
-    public static void writeToFile(VirtualFile file, String content) {
-        try {
-            file.setBinaryContent(content.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public static void writeToFile(Project project, VirtualFile file, String content) {
+        Runnable runnable = () -> {
+            try {
+                file.setBinaryContent(content.getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        };
+
+        WriteCommandAction.runWriteCommandAction(project, runnable);
     }
 }
