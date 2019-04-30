@@ -1,5 +1,6 @@
 package com.zll.format
 
+import com.google.gson.JsonObject
 import com.google.gson.JsonParseException
 import com.google.gson.JsonParser
 import java.lang.IllegalStateException
@@ -10,7 +11,15 @@ class ClassGenerator(private val generateComments: Boolean, private val ignoreEm
 
     fun generate(name: String, string: String): String {
         return try {
-            val fields = Param.json2Params(JsonParser().parse(string).asJsonObject)
+            val parseResult = JsonParser().parse(string)
+
+            val json: JsonObject? = if (parseResult.isJsonObject) {
+                parseResult.asJsonObject
+            } else if (parseResult.isJsonArray) {
+                parseResult.asJsonArray[0].asJsonObject
+            } else null
+
+            val fields = Param.json2Params(json)
             "class $name {\n${printClassWithParams(fields, 2, name)}\n}\n${buildClasses()}"
         } catch (jsonParseException: JsonParseException) {
             jsonParseException.printStackTrace()
