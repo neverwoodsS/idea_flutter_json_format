@@ -8,7 +8,9 @@ main() async {
 
   Temp temp = Temp.fromMap(map);
   print(temp.data.expressAddress.receiverCellphone);
+  print(temp.intList);
   print(temp.emptyList);
   print(temp.nullList);
   print(temp.nullObj);
+  print(temp.testFromList);
 }

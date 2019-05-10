@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>com.zll.format</id>
   <name>dart_json_format</name>
-  <version>1.6</version>
+  <version>1.7</version>
   <vendor email="413700858@qq.com" url="https://github.com/neverwoodsS">neverwoods</vendor>
 
   <description>
@@ -9,8 +9,8 @@
   </description>
 
   <change-notes>
-      fix issue #2, support jsonArray to be root object
-      see issue at https://github.com/neverwoodsS/idea_dart_json_format/issues/2
+      fix issue #3, return an empty array if there is a null which supposed to be an array
+      see issue at https://github.com/neverwoodsS/idea_dart_json_format/issues/3
   </change-notes>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->

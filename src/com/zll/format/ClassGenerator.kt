@@ -142,7 +142,7 @@ class ClassGenerator(private val generateComments: Boolean, private val ignoreEm
         if (listBaseList.isNotEmpty())
             sb.append("\n")
         for ((count, pair) in listBaseList.withIndex()) {
-            sb.append("\n").append(tempSpaceStr).append("List<dynamic> dynamicList").append(count).append(" = map['").append(pair.value).append("'];")
+            sb.append("\n").append(tempSpaceStr).append("List<dynamic> dynamicList").append(count).append(" = map['").append(pair.value).append("'] ?? [];")
             sb.append("\n").append(tempSpaceStr).append(fieldName).append(".").append(pair.value).append(" = new List();")
 
             var function = "o.toString()"
@@ -164,6 +164,7 @@ class ClassGenerator(private val generateComments: Boolean, private val ignoreEm
         /* map.value 转换为 list 的静态函数 start **/
         sb.append("\n").append(spaceStr)
                 .append("static ").append("List<").append(className).append(">").append(" fromMapList").append("(dynamic mapList) {")
+                .append("\n").append(tempSpaceStr).append("if (mapList == null) return [];")
                 .append("\n").append(tempSpaceStr).append("List<").append(className).append("> list = new List(mapList.length);")
                 .append("\n").append(tempSpaceStr).append("for (int i = 0; i < mapList.length; i++) {")
                 .append("\n").append(tempSpaceStr).append("  ").append("list[i] = fromMap(mapList[i]);")

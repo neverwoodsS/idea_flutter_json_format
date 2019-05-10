@@ -1,58 +1,46 @@
 class Temp {
-
-  /**
-   * code : "2000"
-   * message : ""
-   * success : true
-   * nullObj : null
-   * data : {"expressAddress":{"address":"控江路1209","createdDatetime":"2015-12-09 19:36:38","receiver":"张**","receiverCellphone":"1502379****","sid":"c25c1954ca204dee8fc18f51bcc71a3e","sortNumber":1,"title":"先生","type":"EXPRESS","userSid":"a19cf6e3586143d283dd4128c456bfaf"},"facetofaceAddress":{"address":"","receiver":"罗","receiverCellphone":"1388345****","sid":"001190e19e754001b53701d0aa81bfe0","sortNumber":1,"title":"女士","type":"FACETOFACE","userSid":"a19cf6e3586143d283dd4128c456bfaf"},"order":{"bidding":2300,"brokerAvatar":"broker/getAvatar?key=avatar/b82378ccaccb403c9d8420274372c904","brokerCellphone":"1347282****","brokerDealNum":15,"brokerName":"王**","brokerSid":"b82378ccaccb403c9d8420274372c904","brokerStars":4.5,"code":"1512151307270113","cover":"show/getPoster?key=52f30bbce4ef4122919cbc95c2f01c36/52f30bbce4ef4122919cbc95c2f01c36","createdDatetime":"2015-12-15 13:07:28","deliveryAddressSid":"c25c1954ca204dee8fc18f51bcc71a3e","deliveryFee":0,"evaluateStarts":0,"isDelete":false,"isSequential":false,"orderStatus":"CLOSED","orderStatusArray":[{"operateDatetime":"2015-12-15 13:07:28","operateUserSid":"b82378ccaccb403c9d8420274372c904","operateUsername":"王**","orderSid":"21bc3cc65e9e47af952c1f4f1f0fd85a","orderType":"1","sid":"04940ed81540466ea4408f79989a5d54","state":"TAKING"}],"orderStatusDesp":"","orderType":"1","payType":"","postTicketSid":"65cc6d54300349e984134ecd0faf3ede","receiveDatetime":"2015-12-15 13:07:28","receiver":"张**","receiverAddress":"控江路1209","receiverCellphone":"1502379****","receiverTitle":"先生","remark":"","requestDatetime":"2015-12-15 13:07:28","showName":"Love Radio 品冠 现在你在哪里 巡回演唱会上海站","showSchedule":"2016-01-09 19:30:00","showScheduleSid":"eecfd0657fb445a7a36abedc9b621c89","showSid":"52f30bbce4ef4122919cbc95c2f01c36","sid":"21bc3cc65e9e47af952c1f4f1f0fd85a","stateDesp":"已关闭","ticketPrice":88000,"ticketQuantity":1,"ticketSid":"c4583aa8a79a478e8e5cd14691028430","totalPrice":2300,"tradeType":"EXPRESS","userCellphone":"1502379****","userLeaveMessage":"","userSid":"a19cf6e3586143d283dd4128c456bfaf","venueAddress":"上海市长宁区武夷路777号","venueName":"上海国际体操中心"}}
-   * extraData : {}
-   * boolList : [true,false,true,true]
-   * doubleList : [0.0,1.1,2.2,3.3]
-   * intList : [0,1,2,3]
-   * emptyList : []
-   * nullList : [null]
-   */
-
   String code;
   String message;
   bool success;
+  dynamic emptyList;
   dynamic nullObj;
   DataBean data;
   ExtraDataBean extraData;
   List<bool> boolList;
   List<double> doubleList;
   List<int> intList;
-  List<dynamic> emptyList;
+  List<TestFromListListBean> testFromList;
   List<dynamic> nullList;
 
   static Temp fromMap(Map<String, dynamic> map) {
-    Temp temp = new Temp();
-    temp.code = map['code'];
-    temp.message = map['message'];
-    temp.success = map['success'];
-    temp.nullObj = map['nullObj'];
-    temp.emptyList = map['emptyList'];
-    temp.nullList = map['nullList'];
-    temp.data = DataBean.fromMap(map['data']);
-    temp.extraData = ExtraDataBean.fromMap(map['extraData']);
+    Temp test = new Temp();
+    test.code = map['code'];
+    test.message = map['message'];
+    test.success = map['success'];
+    test.emptyList = map['emptyList'];
+    test.nullObj = map['nullObj'];
+    test.nullList = map['nullList'];
+    test.data = DataBean.fromMap(map['data']);
+    test.extraData = ExtraDataBean.fromMap(map['extraData']);
+    test.testFromList = TestFromListListBean.fromMapList(map['testFromList']);
 
-    List<dynamic> dynamicList0 = map['boolList'];
-    temp.boolList = new List();
-    temp.boolList.addAll(dynamicList0.map((o) => o.toString() == 'true'));
+    List<dynamic> dynamicList0 = map['boolList'] ?? [];
+    test.boolList = new List();
+    test.boolList.addAll(dynamicList0.map((o) => o.toString() == 'true'));
 
-    List<dynamic> dynamicList1 = map['doubleList'];
-    temp.doubleList = new List();
-    temp.doubleList.addAll(dynamicList1.map((o) => double.parse(o.toString())));
+    List<dynamic> dynamicList1 = map['doubleList'] ?? [];
+    test.doubleList = new List();
+    test.doubleList.addAll(dynamicList1.map((o) => double.parse(o.toString())));
 
-    List<dynamic> dynamicList2 = map['intList'];
-    temp.intList = new List();
-    temp.intList.addAll(dynamicList2.map((o) => int.parse(o.toString())));
+    List<dynamic> dynamicList2 = map['intList'] ?? [];
+    test.intList = new List();
+    test.intList.addAll(dynamicList2.map((o) => int.parse(o.toString())));
 
-    return temp;
+    return test;
   }
 
   static List<Temp> fromMapList(dynamic mapList) {
+    if (mapList == null) return [];
     List<Temp> list = new List(mapList.length);
     for (int i = 0; i < mapList.length; i++) {
       list[i] = fromMap(mapList[i]);
@@ -63,13 +51,6 @@ class Temp {
 }
 
 class DataBean {
-
-  /**
-   * expressAddress : {"address":"控江路1209","createdDatetime":"2015-12-09 19:36:38","receiver":"张**","receiverCellphone":"1502379****","sid":"c25c1954ca204dee8fc18f51bcc71a3e","sortNumber":1,"title":"先生","type":"EXPRESS","userSid":"a19cf6e3586143d283dd4128c456bfaf"}
-   * facetofaceAddress : {"address":"","receiver":"罗","receiverCellphone":"1388345****","sid":"001190e19e754001b53701d0aa81bfe0","sortNumber":1,"title":"女士","type":"FACETOFACE","userSid":"a19cf6e3586143d283dd4128c456bfaf"}
-   * order : {"bidding":2300,"brokerAvatar":"broker/getAvatar?key=avatar/b82378ccaccb403c9d8420274372c904","brokerCellphone":"1347282****","brokerDealNum":15,"brokerName":"王**","brokerSid":"b82378ccaccb403c9d8420274372c904","brokerStars":4.5,"code":"1512151307270113","cover":"show/getPoster?key=52f30bbce4ef4122919cbc95c2f01c36/52f30bbce4ef4122919cbc95c2f01c36","createdDatetime":"2015-12-15 13:07:28","deliveryAddressSid":"c25c1954ca204dee8fc18f51bcc71a3e","deliveryFee":0,"evaluateStarts":0,"isDelete":false,"isSequential":false,"orderStatus":"CLOSED","orderStatusArray":[{"operateDatetime":"2015-12-15 13:07:28","operateUserSid":"b82378ccaccb403c9d8420274372c904","operateUsername":"王**","orderSid":"21bc3cc65e9e47af952c1f4f1f0fd85a","orderType":"1","sid":"04940ed81540466ea4408f79989a5d54","state":"TAKING"}],"orderStatusDesp":"","orderType":"1","payType":"","postTicketSid":"65cc6d54300349e984134ecd0faf3ede","receiveDatetime":"2015-12-15 13:07:28","receiver":"张**","receiverAddress":"控江路1209","receiverCellphone":"1502379****","receiverTitle":"先生","remark":"","requestDatetime":"2015-12-15 13:07:28","showName":"Love Radio 品冠 现在你在哪里 巡回演唱会上海站","showSchedule":"2016-01-09 19:30:00","showScheduleSid":"eecfd0657fb445a7a36abedc9b621c89","showSid":"52f30bbce4ef4122919cbc95c2f01c36","sid":"21bc3cc65e9e47af952c1f4f1f0fd85a","stateDesp":"已关闭","ticketPrice":88000,"ticketQuantity":1,"ticketSid":"c4583aa8a79a478e8e5cd14691028430","totalPrice":2300,"tradeType":"EXPRESS","userCellphone":"1502379****","userLeaveMessage":"","userSid":"a19cf6e3586143d283dd4128c456bfaf","venueAddress":"上海市长宁区武夷路777号","venueName":"上海国际体操中心"}
-   */
-
   ExpressAddressBean expressAddress;
   FacetofaceAddressBean facetofaceAddress;
   OrderBean order;
@@ -83,6 +64,7 @@ class DataBean {
   }
 
   static List<DataBean> fromMapList(dynamic mapList) {
+    if (mapList == null) return [];
     List<DataBean> list = new List(mapList.length);
     for (int i = 0; i < mapList.length; i++) {
       list[i] = fromMap(mapList[i]);
@@ -99,6 +81,7 @@ class ExtraDataBean {
   }
 
   static List<ExtraDataBean> fromMapList(dynamic mapList) {
+    if (mapList == null) return [];
     List<ExtraDataBean> list = new List(mapList.length);
     for (int i = 0; i < mapList.length; i++) {
       list[i] = fromMap(mapList[i]);
@@ -107,20 +90,26 @@ class ExtraDataBean {
   }
 }
 
+class TestFromListListBean {
+  String testKey;
+
+  static TestFromListListBean fromMap(Map<String, dynamic> map) {
+    TestFromListListBean testFromListListBean = new TestFromListListBean();
+    testFromListListBean.testKey = map['testKey'];
+    return testFromListListBean;
+  }
+
+  static List<TestFromListListBean> fromMapList(dynamic mapList) {
+    if (mapList == null) return [];
+    List<TestFromListListBean> list = new List(mapList.length);
+    for (int i = 0; i < mapList.length; i++) {
+      list[i] = fromMap(mapList[i]);
+    }
+    return list;
+  }
+}
+
 class ExpressAddressBean {
-
-  /**
-   * address : "控江路1209"
-   * createdDatetime : "2015-12-09 19:36:38"
-   * receiver : "张**"
-   * receiverCellphone : "1502379****"
-   * sid : "c25c1954ca204dee8fc18f51bcc71a3e"
-   * title : "先生"
-   * type : "EXPRESS"
-   * userSid : "a19cf6e3586143d283dd4128c456bfaf"
-   * sortNumber : 1
-   */
-
   String address;
   String createdDatetime;
   String receiver;
@@ -146,6 +135,7 @@ class ExpressAddressBean {
   }
 
   static List<ExpressAddressBean> fromMapList(dynamic mapList) {
+    if (mapList == null) return [];
     List<ExpressAddressBean> list = new List(mapList.length);
     for (int i = 0; i < mapList.length; i++) {
       list[i] = fromMap(mapList[i]);
@@ -155,18 +145,6 @@ class ExpressAddressBean {
 }
 
 class FacetofaceAddressBean {
-
-  /**
-   * address : ""
-   * receiver : "罗"
-   * receiverCellphone : "1388345****"
-   * sid : "001190e19e754001b53701d0aa81bfe0"
-   * title : "女士"
-   * type : "FACETOFACE"
-   * userSid : "a19cf6e3586143d283dd4128c456bfaf"
-   * sortNumber : 1
-   */
-
   String address;
   String receiver;
   String receiverCellphone;
@@ -190,6 +168,7 @@ class FacetofaceAddressBean {
   }
 
   static List<FacetofaceAddressBean> fromMapList(dynamic mapList) {
+    if (mapList == null) return [];
     List<FacetofaceAddressBean> list = new List(mapList.length);
     for (int i = 0; i < mapList.length; i++) {
       list[i] = fromMap(mapList[i]);
@@ -199,54 +178,6 @@ class FacetofaceAddressBean {
 }
 
 class OrderBean {
-
-  /**
-   * brokerAvatar : "broker/getAvatar?key=avatar/b82378ccaccb403c9d8420274372c904"
-   * brokerCellphone : "1347282****"
-   * brokerName : "王**"
-   * brokerSid : "b82378ccaccb403c9d8420274372c904"
-   * code : "1512151307270113"
-   * cover : "show/getPoster?key=52f30bbce4ef4122919cbc95c2f01c36/52f30bbce4ef4122919cbc95c2f01c36"
-   * createdDatetime : "2015-12-15 13:07:28"
-   * deliveryAddressSid : "c25c1954ca204dee8fc18f51bcc71a3e"
-   * orderStatus : "CLOSED"
-   * orderStatusDesp : ""
-   * orderType : "1"
-   * payType : ""
-   * postTicketSid : "65cc6d54300349e984134ecd0faf3ede"
-   * receiveDatetime : "2015-12-15 13:07:28"
-   * receiver : "张**"
-   * receiverAddress : "控江路1209"
-   * receiverCellphone : "1502379****"
-   * receiverTitle : "先生"
-   * remark : ""
-   * requestDatetime : "2015-12-15 13:07:28"
-   * showName : "Love Radio 品冠 现在你在哪里 巡回演唱会上海站"
-   * showSchedule : "2016-01-09 19:30:00"
-   * showScheduleSid : "eecfd0657fb445a7a36abedc9b621c89"
-   * showSid : "52f30bbce4ef4122919cbc95c2f01c36"
-   * sid : "21bc3cc65e9e47af952c1f4f1f0fd85a"
-   * stateDesp : "已关闭"
-   * ticketSid : "c4583aa8a79a478e8e5cd14691028430"
-   * tradeType : "EXPRESS"
-   * userCellphone : "1502379****"
-   * userLeaveMessage : ""
-   * userSid : "a19cf6e3586143d283dd4128c456bfaf"
-   * venueAddress : "上海市长宁区武夷路777号"
-   * venueName : "上海国际体操中心"
-   * isDelete : false
-   * isSequential : false
-   * brokerStars : 4.5
-   * bidding : 2300
-   * brokerDealNum : 15
-   * deliveryFee : 0
-   * evaluateStarts : 0
-   * ticketPrice : 88000
-   * ticketQuantity : 1
-   * totalPrice : 2300
-   * orderStatusArray : [{"operateDatetime":"2015-12-15 13:07:28","operateUserSid":"b82378ccaccb403c9d8420274372c904","operateUsername":"王**","orderSid":"21bc3cc65e9e47af952c1f4f1f0fd85a","orderType":"1","sid":"04940ed81540466ea4408f79989a5d54","state":"TAKING"}]
-   */
-
   String brokerAvatar;
   String brokerCellphone;
   String brokerName;
@@ -342,6 +273,7 @@ class OrderBean {
   }
 
   static List<OrderBean> fromMapList(dynamic mapList) {
+    if (mapList == null) return [];
     List<OrderBean> list = new List(mapList.length);
     for (int i = 0; i < mapList.length; i++) {
       list[i] = fromMap(mapList[i]);
@@ -351,17 +283,6 @@ class OrderBean {
 }
 
 class OrderStatusArrayListBean {
-
-  /**
-   * operateDatetime : "2015-12-15 13:07:28"
-   * operateUserSid : "b82378ccaccb403c9d8420274372c904"
-   * operateUsername : "王**"
-   * orderSid : "21bc3cc65e9e47af952c1f4f1f0fd85a"
-   * orderType : "1"
-   * sid : "04940ed81540466ea4408f79989a5d54"
-   * state : "TAKING"
-   */
-
   String operateDatetime;
   String operateUserSid;
   String operateUsername;
@@ -383,6 +304,7 @@ class OrderStatusArrayListBean {
   }
 
   static List<OrderStatusArrayListBean> fromMapList(dynamic mapList) {
+    if (mapList == null) return [];
     List<OrderStatusArrayListBean> list = new List(mapList.length);
     for (int i = 0; i < mapList.length; i++) {
       list[i] = fromMap(mapList[i]);
