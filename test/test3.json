@@ -1,10 +1,12 @@
 {
+  "testInt": 2,
+  "testDouble": 3.4,
+  "testString": "5",
   "testNull": null,
   "testObj": {
     "testObjString": "1"
   },
   "empty": [],
   "tests": [[{"test": 3}]],
-  "testInt": 4,
-  "testString": "5"
+  "nested": [[[[[[]]]]]]
 }

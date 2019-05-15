@@ -7,7 +7,7 @@ import com.zll.format.ClazzGenerator
 import java.io.File
 
 fun main(args: Array<String>) {
-    val json = File("test/test3.json").readText()
+    val json = File("test/test.json").readText()
     val obj = JsonObject().apply {
 //        addProperty("test0", "3")
 //        addProperty("test1", false)
@@ -27,19 +27,19 @@ fun main(args: Array<String>) {
         add("array", array1)
     }
 
-
-//    val json = obj.toString()  //"{\"test\":\"3\"}"
-//    println(ClassGenerator(generateComments = true, ignoreEmptyOrNull = false).generate("Temp", json))
-
     JsonParser().parse(json).let {
         if (it is JsonObject)
             it.asJsonObject
         else if (it is JsonArray)
             it.asJsonArray[0].asJsonObject
         else null
-    }.let {
-        Clazz("Test", it)
-    }.let {
-        println(ClazzGenerator(false, false).printClazz(it, 0))
+    }.let { obj ->
+        mutableListOf<Clazz>().let {
+            Clazz(it, "Test", obj) to it
+        }
+    }.let { (clazz, clazzes) ->
+        clazzes.reversed().forEach {
+            println(ClazzGenerator(false, false).printClazz(it == clazz, it, 0))
+        }
     }
 }

@@ -2,53 +2,53 @@ package com.zll.format
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
-import java.lang.StringBuilder
 
 abstract class Clazz(
+    open val root: MutableList<Clazz>,
     open val name: String,
     open val content: Any?,
     open val children: List<Clazz>?
 ) {
     companion object {
-        operator fun invoke(name: String, any: Any?): Clazz {
+        operator fun invoke(root: MutableList<Clazz>, name: String, any: Any?): Clazz {
             // 处理空值
             if (any == null || "null" == any.toString())
-                return EmptyClazz(name, any, null)
+                return EmptyClazz(root, name, any, null)
 
             // 处理对象
             if (any is JsonObject)
-                return ObjectClazz(name, any, json2Clazz(any))
+                return ObjectClazz(root, name, any, json2Clazz(root, any))
 
             // 处理数组
             if (any is JsonArray) {
                 return if (any.size() == 0) {
-                    ListClazz(name, any, null, null)
+                    ListClazz(root, name, any, null, null)
                 } else {
-                    val temp = Clazz(name, any[0])
+                    val temp = Clazz(root, name, any[0])
                     val deep = diveIntoNestedList(any)
-                    ListClazz(name, any, null, temp, deep)
+                    ListClazz(root, name, any, null, temp, deep)
                 }
             }
 
             // 处理基本类型
             if (any.isBoolean())
-                return BaseClazz("bool", name, any, null)
+                return BaseClazz(root, "bool", name, any, null)
 
             if (any.isInt() || any.isLong())
-                return BaseClazz("int", name, any, null)
+                return BaseClazz(root, "int", name, any, null)
 
             if (any.isDouble() || any.isFloat())
-                return BaseClazz("double", name, any, null)
+                return BaseClazz(root, "double", name, any, null)
 
             // 都不匹配的情况，默认为 String 类型
-            return  BaseClazz("String", name, any, null)
+            return  BaseClazz(root, "String", name, any, null)
         }
 
-        fun json2Clazz(jsonObject: JsonObject): List<Clazz> {
+        fun json2Clazz(root: MutableList<Clazz>, jsonObject: JsonObject): List<Clazz> {
             val list = mutableListOf<Clazz>()
             for (o in jsonObject.entrySet()) {
                 val entry = o as Map.Entry<*, *>
-                list.add(Clazz(entry.key.toString(), entry.value))
+                list.add(Clazz(root, entry.key.toString(), entry.value))
             }
             return list
         }
@@ -78,41 +78,48 @@ abstract class Clazz(
     }
 
     fun getStatement() = "${getClassName()} $name;"
-
     abstract fun getClassName(): String
 }
 
 data class EmptyClazz(
+    override val root: MutableList<Clazz>,
     override val name: String,
     override val content: Any?,
     override val children: List<Clazz>?
-) : Clazz(name, content, children) {
+) : Clazz(root, name, content, children) {
     override fun getClassName() = "dynamic"
 }
 
 data class BaseClazz(
+    override val root: MutableList<Clazz>,
     val type: String,
     override val name: String,
     override val content: Any?,
     override val children: List<Clazz>?
-) : Clazz(name, content, children) {
+) : Clazz(root, name, content, children) {
     override fun getClassName() = type
 }
 
 data class ObjectClazz(
+    override val root: MutableList<Clazz>,
     override val name: String,
     override val content: Any?,
     override val children: List<Clazz>?
-) : Clazz(name, content, children) {
+) : Clazz(root, name, content, children) {
+    init {
+        root.add(this)
+    }
+
     override fun getClassName() = "${Util.toUpperCaseFirstOne(name)}Bean"
 }
 
 data class ListClazz(
+    override val root: MutableList<Clazz>,
     override val name: String,
     override val content: Any?,
     override val children: List<Clazz>?,
     val child: Clazz?,
     val deep: Int = 1 // 嵌套深度
-) : Clazz(name, content, children) {
+) : Clazz(root, name, content, children) {
     override fun getClassName() = "List<${child?.getClassName() ?: "dynamic"}>"
 }
