@@ -1,3 +1,10 @@
 {
-  "test": 4
+  "testNull": null,
+  "testObj": {
+    "testObjString": "1"
+  },
+  "empty": [],
+  "tests": [[{"test": 3}]],
+  "testInt": 4,
+  "testString": "5"
 }

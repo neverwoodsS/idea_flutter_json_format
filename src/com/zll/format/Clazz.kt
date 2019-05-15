@@ -2,6 +2,7 @@ package com.zll.format
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import java.lang.StringBuilder
 
 abstract class Clazz(
     open val name: String,
@@ -21,11 +22,11 @@ abstract class Clazz(
             // 处理数组
             if (any is JsonArray) {
                 return if (any.size() == 0) {
-                    ListClazz(name, any, null)
+                    ListClazz(name, any, null, null)
                 } else {
-                    val temp = Clazz("placeholder", any[0])
+                    val temp = Clazz(name, any[0])
                     val deep = diveIntoNestedList(any)
-                    ListClazz(name, any, temp.children, deep)
+                    ListClazz(name, any, null, temp, deep)
                 }
             }
 
@@ -75,30 +76,43 @@ abstract class Clazz(
         private fun Any.isFloat() = toString().toFloatOrNull() != null
         private fun Any.isBoolean() = toString().let { it == "true" || it == "false" }
     }
+
+    fun getStatement() = "${getClassName()} $name;"
+
+    abstract fun getClassName(): String
 }
 
 data class EmptyClazz(
     override val name: String,
     override val content: Any?,
     override val children: List<Clazz>?
-) : Clazz(name, content, children)
+) : Clazz(name, content, children) {
+    override fun getClassName() = "dynamic"
+}
 
 data class BaseClazz(
     val type: String,
     override val name: String,
     override val content: Any?,
     override val children: List<Clazz>?
-) : Clazz(name, content, children)
+) : Clazz(name, content, children) {
+    override fun getClassName() = type
+}
 
 data class ObjectClazz(
     override val name: String,
     override val content: Any?,
     override val children: List<Clazz>?
-) : Clazz(name, content, children)
+) : Clazz(name, content, children) {
+    override fun getClassName() = "${Util.toUpperCaseFirstOne(name)}Bean"
+}
 
 data class ListClazz(
     override val name: String,
     override val content: Any?,
     override val children: List<Clazz>?,
+    val child: Clazz?,
     val deep: Int = 1 // 嵌套深度
-) : Clazz(name, content, children)
+) : Clazz(name, content, children) {
+    override fun getClassName() = "List<${child?.getClassName() ?: "dynamic"}>"
+}

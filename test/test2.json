@@ -1,0 +1,21 @@
+{
+  "params": [[
+    [
+      "completedLength",
+      "connections",
+      "dir",
+      "downloadSpeed",
+      "files",
+      "gid",
+      "infoHash",
+      "numPieces",
+      "numSeeders",
+      "pieceLength",
+      "seeder",
+      "status",
+      "totalLength",
+      "uploadLength",
+      "uploadSpeed"
+    ]
+  ]]
+}

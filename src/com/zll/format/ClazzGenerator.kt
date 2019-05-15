@@ -7,7 +7,7 @@ import com.google.gson.JsonParser
 import java.lang.IllegalStateException
 
 class ClazzGenerator(private val generateComments: Boolean, private val ignoreEmptyOrNull: Boolean) {
-    val clazzes = mutableMapOf<String, List<Clazz>>()
+    val clazzes = mutableListOf<Clazz>()
 
     fun generate(name: String, string: String) = try {
         JsonParser().parse(string).let {
@@ -18,6 +18,8 @@ class ClazzGenerator(private val generateComments: Boolean, private val ignoreEm
             else null
         }.let {
             Clazz(name, it)
+        }.let {
+            printClazz(it, 0)
         }
     } catch (jsonParseException: JsonParseException) {
         jsonParseException.printStackTrace()
@@ -30,5 +32,40 @@ class ClazzGenerator(private val generateComments: Boolean, private val ignoreEm
         } else {
             "error: unknown"
         }
+    }
+
+    fun printClazz(clazz: Clazz, space: Int): String {
+        val commentSb = StringBuilder()
+        val sb = StringBuilder()
+
+        val tempClazzes = mutableListOf<Clazz>()
+
+        var spaceStr = ""
+        repeat(space) { spaceStr += " " }
+
+        // 输出 class 头
+        sb.append(spaceStr).append("class ").append(clazz.name).append(" {")
+        sb.append("\n")
+
+        // 输出属性声明
+        clazz.children?.map {
+            "$spaceStr  ${it.getStatement()}\n"
+        }?.forEach {
+            sb.append(it)
+        }
+
+        // 输出 fromMap 头
+        sb.append("\n")
+        sb.append("$spaceStr  static ").append(clazz.name).append(" fromMap(Map<String, dynamic> map) {")
+        sb.append("\n")
+
+        // 输出 fromMap 尾
+        sb.append("$spaceStr  }")
+
+        // 输出 class 尾
+        sb.append("\n")
+        sb.append(spaceStr).append("}")
+
+        return sb.toString()
     }
 }

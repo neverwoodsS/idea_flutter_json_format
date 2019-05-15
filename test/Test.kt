@@ -3,10 +3,11 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.zll.format.ClassGenerator
 import com.zll.format.Clazz
+import com.zll.format.ClazzGenerator
 import java.io.File
 
 fun main(args: Array<String>) {
-    val json = File("test/test2.json").readText()
+    val json = File("test/test3.json").readText()
     val obj = JsonObject().apply {
 //        addProperty("test0", "3")
 //        addProperty("test1", false)
@@ -39,6 +40,6 @@ fun main(args: Array<String>) {
     }.let {
         Clazz("Test", it)
     }.let {
-        println(it)
+        println(ClazzGenerator(false, false).printClazz(it, 0))
     }
 }
