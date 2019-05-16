@@ -25,8 +25,7 @@ abstract class Clazz(
                     ListClazz(root, name, any, null, null)
                 } else {
                     val temp = Clazz(root, name, any[0])
-                    val deep = diveIntoNestedList(any)
-                    ListClazz(root, name, any, null, temp, deep)
+                    ListClazz(root, name, any, null, temp)
                 }
             }
 
@@ -51,23 +50,6 @@ abstract class Clazz(
                 list.add(Clazz(root, entry.key.toString(), entry.value))
             }
             return list
-        }
-
-        fun diveIntoNestedList(array: JsonArray): Int {
-            var count = 0
-
-            var temp = array
-            while (true) {
-                count++
-
-                if (temp.size() == 0 || temp.get(0) !is JsonArray) {
-                    break
-                }
-
-                temp = temp.get(0) as JsonArray
-            }
-
-            return count
         }
 
         private fun Any.isInt() = toString().toIntOrNull() != null
@@ -139,21 +121,21 @@ data class ListClazz(
     override val name: String,
     override val content: Any?,
     override val children: List<Clazz>?,
-    val child: Clazz?,
-    val deep: Int = 1 // 嵌套深度
+    val child: Clazz?
 ) : Clazz(root, name, content, children) {
 
     override fun getClassName() = "List<${child?.getClassName() ?: "dynamic"}>"
 
     override fun map(obj: String): String {
-        return if (child == null) "List()..addAll($obj as List)"
+        return if (child == null || child is EmptyClazz) "List()..addAll($obj as List)"
         else "List()..addAll(($obj as List).map((${obj}o) => ${child.map("${obj}o")}))"
     }
 
     override fun getAssignments(parent: String): List<String> {
-        return listOf(
+        return if (child == null || child is EmptyClazz) listOf("$parent.$name = map['$name'];")
+        else listOf(
             "$parent.$name = List()..addAll(",
-            "  (map['$name'] as List).map((o) => ${child?.map("o")})",
+            "  (map['$name'] as List).map((o) => ${child.map("o")})",
             ");"
         )
     }

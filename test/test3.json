@@ -1,3 +1,5 @@
 {
-  "test": [[[{"key": "value"}]]]
+  "list": [],
+  "nullList": [null],
+  "tests": [[[1]]]
 }
