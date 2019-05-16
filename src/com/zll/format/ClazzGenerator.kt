@@ -59,8 +59,19 @@ class ClazzGenerator(private val generateComments: Boolean, private val ignoreEm
         sb.append("\n")
         sb.append("$spaceStr  static ").append(className).append(" fromMap(Map<String, dynamic> map) {")
         sb.append("\n")
+        sb.append("$spaceStr    ").append(className).append(" ").append(clazz.getFieldName()).append(" = ").append(className).append("();")
+        sb.append("\n")
+
+        // 输出数据提取及转换
+        clazz.children?.flatMap { it.getAssignments(clazz.getFieldName()) }?.filterNot { it.isEmpty() }?.map {
+            "$spaceStr    $it\n"
+        }?.forEach {
+            sb.append(it)
+        }
 
         // 输出 fromMap 尾
+        sb.append("$spaceStr    return ${clazz.getFieldName()};")
+        sb.append("\n")
         sb.append("$spaceStr  }")
 
         // 输出 class 尾

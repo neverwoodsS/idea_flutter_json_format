@@ -78,7 +78,11 @@ abstract class Clazz(
     }
 
     fun getStatement() = "${getClassName()} $name;"
+    fun getFieldName() = Util.toLowerCaseFirstOne(getClassName())
+
+    abstract fun getAssignments(parent: String): List<String>
     abstract fun getClassName(): String
+    abstract fun map(obj: String): String
 }
 
 data class EmptyClazz(
@@ -87,7 +91,10 @@ data class EmptyClazz(
     override val content: Any?,
     override val children: List<Clazz>?
 ) : Clazz(root, name, content, children) {
+
     override fun getClassName() = "dynamic"
+    override fun getAssignments(parent: String) = listOf("$parent.$name = map['$name'];")
+    override fun map(obj: String) = ""
 }
 
 data class BaseClazz(
@@ -97,7 +104,17 @@ data class BaseClazz(
     override val content: Any?,
     override val children: List<Clazz>?
 ) : Clazz(root, name, content, children) {
+
     override fun getClassName() = type
+    override fun getAssignments(parent: String) = listOf("$parent.$name = map['$name'];")
+    override fun map(obj: String): String {
+        return when (type) {
+            "bool" -> "$obj.toString() == 'true'"
+            "int" -> "int.parse($obj.toString())"
+            "double" -> "double.parse($obj.toString())"
+            else -> "$obj.toString()"
+        }
+    }
 }
 
 data class ObjectClazz(
@@ -111,6 +128,10 @@ data class ObjectClazz(
     }
 
     override fun getClassName() = "${Util.toUpperCaseFirstOne(name)}Bean"
+    override fun getAssignments(parent: String) = listOf("$parent.$name = ${getClassName()}.fromMap(map['$name'])")
+    override fun map(obj: String): String {
+        return "${getClassName()}.fromMap($obj)"
+    }
 }
 
 data class ListClazz(
@@ -121,5 +142,19 @@ data class ListClazz(
     val child: Clazz?,
     val deep: Int = 1 // 嵌套深度
 ) : Clazz(root, name, content, children) {
+
     override fun getClassName() = "List<${child?.getClassName() ?: "dynamic"}>"
+
+    override fun map(obj: String): String {
+        return if (child == null) "List()..addAll($obj as List)"
+        else "List()..addAll(($obj as List).map((${obj}o) => ${child.map("${obj}o")}))"
+    }
+
+    override fun getAssignments(parent: String): List<String> {
+        return listOf(
+            "$parent.$name = List()..addAll(",
+            "  (map['$name'] as List).map((o) => ${child?.map("o")})",
+            ");"
+        )
+    }
 }
