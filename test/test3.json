@@ -1,5 +1,7 @@
 {
-  "list": [],
-  "nullList": [null],
-  "tests": [[[1]]]
+  "outer": {
+    "inner": {
+      "key": "value"
+    }
+  }
 }

@@ -59,6 +59,8 @@ class ClazzGenerator(private val generateComments: Boolean, private val ignoreEm
         sb.append("\n")
         sb.append("$spaceStr  static ").append(className).append(" fromMap(Map<String, dynamic> map) {")
         sb.append("\n")
+        sb.append("$spaceStr    ").append("if (map == null) return null;")
+        sb.append("\n")
         sb.append("$spaceStr    ").append(className).append(" ").append(clazz.getFieldName()).append(" = ").append(className).append("();")
         sb.append("\n")
 

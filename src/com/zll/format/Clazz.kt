@@ -92,8 +92,8 @@ data class BaseClazz(
     override fun map(obj: String): String {
         return when (type) {
             "bool" -> "$obj.toString() == 'true'"
-            "int" -> "int.parse($obj.toString())"
-            "double" -> "double.parse($obj.toString())"
+            "int" -> "int.tryParse($obj.toString())"
+            "double" -> "double.tryParse($obj.toString())"
             else -> "$obj.toString()"
         }
     }
@@ -110,7 +110,7 @@ data class ObjectClazz(
     }
 
     override fun getClassName() = "${Util.toUpperCaseFirstOne(name)}Bean"
-    override fun getAssignments(parent: String) = listOf("$parent.$name = ${getClassName()}.fromMap(map['$name'])")
+    override fun getAssignments(parent: String) = listOf("$parent.$name = ${getClassName()}.fromMap(map['$name']);")
     override fun map(obj: String): String {
         return "${getClassName()}.fromMap($obj)"
     }
@@ -128,14 +128,14 @@ data class ListClazz(
 
     override fun map(obj: String): String {
         return if (child == null || child is EmptyClazz) "List()..addAll($obj as List)"
-        else "List()..addAll(($obj as List).map((${obj}o) => ${child.map("${obj}o")}))"
+        else "List()..addAll(($obj as List ?? []).map((${obj}o) => ${child.map("${obj}o")}))"
     }
 
     override fun getAssignments(parent: String): List<String> {
         return if (child == null || child is EmptyClazz) listOf("$parent.$name = map['$name'];")
         else listOf(
             "$parent.$name = List()..addAll(",
-            "  (map['$name'] as List).map((o) => ${child.map("o")})",
+            "  (map['$name'] as List ?? []).map((o) => ${child.map("o")})",
             ");"
         )
     }
