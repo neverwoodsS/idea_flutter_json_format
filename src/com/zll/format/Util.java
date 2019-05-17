@@ -23,7 +23,8 @@ public class Util {
     }
 
     // 首字母转大写
-    public static String toUpperCaseFirstOne(String s){
+    public static String toUpperCaseFirstOne(String s) {
+        if (s.isEmpty()) return s;
         if(Character.isUpperCase(s.charAt(0)))
             return s;
         else
@@ -31,7 +32,8 @@ public class Util {
     }
 
     // 首字母转小写
-    public static String toLowerCaseFirstOne(String s){
+    public static String toLowerCaseFirstOne(String s) {
+        if (s.isEmpty()) return s;
         if(Character.isLowerCase(s.charAt(0)))
             return s;
         else
