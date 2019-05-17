@@ -19,7 +19,7 @@ class UiBuilder(private val project: Project, private val virtualFile: VirtualFi
     }
 
     private fun placeComponents(panel: JPanel) = panel.apply {
-        val className = Util.toUpperCaseFirstOne(virtualFile.nameWithoutExtension)
+        val className = Util.toUpperCaseFirstOne(virtualFile.nameWithoutExtension).split("_").reduce { acc, s -> "$acc${Util.toUpperCaseFirstOne(s)}" }
         val settings = Settings()
 
         layout = null
