@@ -45,6 +45,15 @@ class ClazzGenerator(val settings: Settings?) {
 
         val className = Util.toUpperCaseFirstOne((if (keepName) clazz.name else clazz.getClassName()))
 
+        if (settings?.generateComments == true) {
+            clazz.children?.map {
+                "/// ${it.getComment()}\n"
+            }?.forEach {
+                sb.append(it)
+            }
+            sb.append("\n")
+        }
+
         // 输出 class 头
         sb.append(spaceStr).append("class ").append(className).append(" {")
         sb.append("\n")

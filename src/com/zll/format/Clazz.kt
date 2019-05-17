@@ -62,6 +62,7 @@ abstract class Clazz(
     fun getStatement() = "${getClassName()} ${getCamelName()};"
     fun getFieldName() = Util.toLowerCaseFirstOne(getClassName())
     fun getCamelName() = name.split("_").reduce { acc, s -> "$acc${Util.toUpperCaseFirstOne(s)}" }
+    fun getComment() = "$name : ${content.toString().replace("\n", "")}"
 
     abstract fun getAssignments(parent: String): List<String>
     abstract fun getClassName(): String

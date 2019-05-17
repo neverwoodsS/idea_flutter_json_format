@@ -8,7 +8,7 @@ import com.zll.format.Settings
 import java.io.File
 
 fun main(args: Array<String>) {
-    val json = File("test/test3.json").readText()
+    val json = File("test/test.json").readText()
 //    val obj = JsonObject().apply {
 ////        addProperty("test0", "3")
 ////        addProperty("test1", false)
