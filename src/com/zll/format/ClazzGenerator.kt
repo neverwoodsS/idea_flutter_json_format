@@ -6,7 +6,7 @@ import com.google.gson.JsonParseException
 import com.google.gson.JsonParser
 import java.lang.IllegalStateException
 
-class ClazzGenerator(val settings: Settings) {
+class ClazzGenerator(val settings: Settings?) {
 
     fun generate(name: String, string: String) = try {
         JsonParser().parse(string).let {

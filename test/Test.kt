@@ -4,6 +4,7 @@ import com.google.gson.JsonParser
 import com.zll.format.ClassGenerator
 import com.zll.format.Clazz
 import com.zll.format.ClazzGenerator
+import com.zll.format.Settings
 import java.io.File
 
 fun main(args: Array<String>) {
@@ -27,5 +28,5 @@ fun main(args: Array<String>) {
 //        add("array", array1)
 //    }
 
-    println(ClazzGenerator(false, false).generate("Test", json))
+    println(ClazzGenerator(null).generate("Test", json))
 }
