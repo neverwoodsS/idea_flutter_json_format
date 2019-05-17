@@ -38,10 +38,7 @@ class ClazzGenerator(val settings: Settings?) {
     }
 
     private fun printClazz(keepName: Boolean, clazz: Clazz, space: Int): String {
-        val commentSb = StringBuilder()
         val sb = StringBuilder()
-
-        val tempClazzes = mutableListOf<Clazz>()
 
         var spaceStr = ""
         repeat(space) { spaceStr += " " }
