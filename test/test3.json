@@ -1,7 +1,14 @@
-{
-  "outer": {
-    "inner": {
-      "key": "value"
-    }
+[
+  {
+    "name": "zll",
+    "age": 29,
+    "star": 4.5,
+    "married": true
+  },
+  {
+  "name": "kfc",
+  "age": 25,
+  "star": 4.1,
+  "married": false
   }
-}
+]
