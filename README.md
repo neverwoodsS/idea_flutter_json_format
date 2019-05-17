@@ -23,7 +23,7 @@ Plugins -> Browse repositories -> input "dart_json_format"
 }
 ```
 
-```
+```dart
 class Test {
   String name;
   int age;
@@ -55,7 +55,7 @@ class Test {
 }
 ```
 
-```
+```dart
 class Test {
   ProgrammerBean programmer;
 
