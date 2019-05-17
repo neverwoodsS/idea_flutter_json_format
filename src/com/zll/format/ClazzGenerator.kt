@@ -6,20 +6,24 @@ import com.google.gson.JsonParseException
 import com.google.gson.JsonParser
 import java.lang.IllegalStateException
 
-class ClazzGenerator(private val generateComments: Boolean, private val ignoreEmptyOrNull: Boolean) {
+class ClazzGenerator(val settings: Settings) {
 
     fun generate(name: String, string: String) = try {
-//        JsonParser().parse(string).let {
-//            if (it is JsonObject)
-//                it.asJsonObject
-//            else if (it is JsonArray)
-//                it.asJsonArray[0].asJsonObject
-//            else null
-//        }.let {
-//            Clazz(name, it)
-//        }.let {
-//            printClazz(it, 0)
-//        }
+        JsonParser().parse(string).let {
+            when (it) {
+                is JsonObject -> it.asJsonObject
+                is JsonArray -> it.asJsonArray[0].asJsonObject
+                else -> null
+            }
+        }.let { obj ->
+            mutableListOf<Clazz>().let {
+                Clazz(it, name, obj) to it
+            }
+        }.let { (clazz, clazzes) ->
+            clazzes.reversed()
+                    .map { printClazz(it == clazz, it, 0) }
+                    .reduce { acc, s -> "$acc\n\n$s" }
+        }
     } catch (jsonParseException: JsonParseException) {
         jsonParseException.printStackTrace()
         "error: not supported json"
@@ -33,7 +37,7 @@ class ClazzGenerator(private val generateComments: Boolean, private val ignoreEm
         }
     }
 
-    fun printClazz(keepName: Boolean, clazz: Clazz, space: Int): String {
+    private fun printClazz(keepName: Boolean, clazz: Clazz, space: Int): String {
         val commentSb = StringBuilder()
         val sb = StringBuilder()
 

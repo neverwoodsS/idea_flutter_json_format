@@ -27,19 +27,5 @@ fun main(args: Array<String>) {
 //        add("array", array1)
 //    }
 
-    JsonParser().parse(json).let {
-        if (it is JsonObject)
-            it.asJsonObject
-        else if (it is JsonArray)
-            it.asJsonArray[0].asJsonObject
-        else null
-    }.let { obj ->
-        mutableListOf<Clazz>().let {
-            Clazz(it, "Test", obj) to it
-        }
-    }.let { (clazz, clazzes) ->
-        clazzes.reversed().forEach {
-            println(ClazzGenerator(false, false).printClazz(it == clazz, it, 0))
-        }
-    }
+    println(ClazzGenerator(false, false).generate("Test", json))
 }
