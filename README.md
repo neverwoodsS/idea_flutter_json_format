@@ -14,7 +14,7 @@ Plugins -> Browse repositories -> input "dart_json_format"
 
 #### 1. Simple data
 
-```
+```json
 {
   "name": "zll",
   "age": 29,
@@ -44,7 +44,7 @@ class Test {
 
 #### 2. Ojbect
 
-```
+```json
 {
   "programmer": {
     "name": "zll",
@@ -87,7 +87,7 @@ class ProgrammerBean {
 
 #### 3. Array
 
-```
+```json
 {
   "names": ["zll", "kfc"],
   "ages": [29, 25],
@@ -96,7 +96,7 @@ class ProgrammerBean {
 }
 ```
 
-```
+```dart
 class Test {
   List<String> names;
   List<int> ages;
@@ -124,7 +124,7 @@ class Test {
 ```
 
 #### 4. Array of Object
-```
+```json
 {
   "programmers": [
     {
@@ -142,7 +142,7 @@ class Test {
 }
 ```
 
-```
+```dart
 class Test {
   List<ProgrammersBean> programmers;
 
@@ -175,13 +175,13 @@ class ProgrammersBean {
 ```
 
 #### 5. Nested Array
-```
+```json
 {
   "something": [[[[[1]]]]]
 }
 ```
 
-```
+```dart
 class Test {
   List<List<List<List<List<int>>>>> something;
 
@@ -197,7 +197,7 @@ class Test {
 ```
 
 #### 5. Nested Array of Object
-```
+```json
 {
   "something": [[[[[{
     "name": "zll",
@@ -208,7 +208,7 @@ class Test {
 }
 ```
 
-```
+```dart
 class Test {
   List<List<List<List<List<SomethingBean>>>>> something;
 
@@ -241,7 +241,7 @@ class SomethingBean {
 ```
 
 #### 6. Empty or Null
-```
+```json
 {
   "obj": null,
   "emptyList": [],
@@ -249,7 +249,7 @@ class SomethingBean {
 }
 ```
 
-```
+```dart
 class Test {
   dynamic obj;
   List<dynamic> emptyList;
@@ -267,7 +267,7 @@ class Test {
 ```
 
 #### 7. Root Array
-```
+```json
 [
   {
     "name": "zll",
@@ -286,7 +286,7 @@ class Test {
 
 ##### Take only array[0] to use
 
-```
+```dart
 class Test {
   String name;
   int age;
