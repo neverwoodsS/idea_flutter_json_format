@@ -59,8 +59,9 @@ abstract class Clazz(
         private fun Any.isBoolean() = toString().let { it == "true" || it == "false" }
     }
 
-    fun getStatement() = "${getClassName()} $name;"
+    fun getStatement() = "${getClassName()} ${getCamelName()};"
     fun getFieldName() = Util.toLowerCaseFirstOne(getClassName())
+    fun getCamelName() = name.split("_").reduce { acc, s -> "$acc${Util.toUpperCaseFirstOne(s)}" }
 
     abstract fun getAssignments(parent: String): List<String>
     abstract fun getClassName(): String
@@ -75,7 +76,7 @@ data class EmptyClazz(
 ) : Clazz(root, name, content, children) {
 
     override fun getClassName() = "dynamic"
-    override fun getAssignments(parent: String) = listOf("$parent.$name = map['$name'];")
+    override fun getAssignments(parent: String) = listOf("$parent.${getCamelName()} = map['$name'];")
     override fun map(obj: String) = ""
 }
 
@@ -88,7 +89,7 @@ data class BaseClazz(
 ) : Clazz(root, name, content, children) {
 
     override fun getClassName() = type
-    override fun getAssignments(parent: String) = listOf("$parent.$name = map['$name'];")
+    override fun getAssignments(parent: String) = listOf("$parent.${getCamelName()} = map['$name'];")
     override fun map(obj: String): String {
         return when (type) {
             "bool" -> "$obj.toString() == 'true'"
@@ -110,7 +111,7 @@ data class ObjectClazz(
     }
 
     override fun getClassName() = "${Util.toUpperCaseFirstOne(name)}Bean"
-    override fun getAssignments(parent: String) = listOf("$parent.$name = ${getClassName()}.fromMap(map['$name']);")
+    override fun getAssignments(parent: String) = listOf("$parent.${getCamelName()} = ${getClassName()}.fromMap(map['$name']);")
     override fun map(obj: String): String {
         return "${getClassName()}.fromMap($obj)"
     }
@@ -132,7 +133,7 @@ data class ListClazz(
     }
 
     override fun getAssignments(parent: String): List<String> {
-        return if (child == null || child is EmptyClazz) listOf("$parent.$name = map['$name'];")
+        return if (child == null || child is EmptyClazz) listOf("$parent.${getCamelName()} = map['$name'];")
         else listOf(
             "$parent.$name = List()..addAll(",
             "  (map['$name'] as List ?? []).map((o) => ${child.map("o")})",
