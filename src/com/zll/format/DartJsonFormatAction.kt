@@ -6,7 +6,6 @@ import com.intellij.openapi.actionSystem.PlatformDataKeys
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.util.PsiUtilBase
-import com.zll.format.ui.UiBuilder
 import javax.swing.JFrame
 
 class DartJsonFormatAction : AnAction() {

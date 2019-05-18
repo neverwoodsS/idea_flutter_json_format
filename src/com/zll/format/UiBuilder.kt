@@ -1,4 +1,4 @@
-package com.zll.format.ui
+package com.zll.format
 
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
