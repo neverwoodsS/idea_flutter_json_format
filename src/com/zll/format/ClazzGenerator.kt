@@ -86,6 +86,22 @@ class ClazzGenerator(val settings: Settings?) {
         sb.append("\n")
         sb.append("$spaceStr  }")
 
+        // 输出 toJson 头
+        sb.append("\n")
+        sb.append("\n")
+        sb.append("$spaceStr  Map toJson() => {")
+        sb.append("\n")
+
+        // 输出数据提取及转换
+        clazz.children?.map { "${it.getJsonAssignment()}," }?.map {
+            "$spaceStr    $it\n"
+        }?.forEach {
+            sb.append(it)
+        }
+
+        // 输入 toJson 尾
+        sb.append("$spaceStr  };")
+
         // 输出 class 尾
         sb.append("\n")
         sb.append(spaceStr).append("}")
