@@ -5,71 +5,35 @@ generate 『toJson』 function to support converting object to map
 
 ```json
 {
-  "mobile" : "17689209851",
-  "avatar" : "http:\/\/album.test.getqood.com\/images\/file\/D9360020804F73C96004009503B3F72387583552.PNG",
-  "organization__id" : "1197146792697790465",
-  "birthdate" : "2018-12-13T00:00:00.000+0800",
-  "type" : "普通会员",
-  "apply_time" : "2011-08-23T00:00:00.000+0800",
-  "nick_name" : "学员测试",
-  "id" : "1139173367484514632",
-  "course_title" : "1",
-  "created_at" : "2018-12-14T09:48:43.000+0800",
-  "updated_at" : "2018-12-25T18:56:31.000+0800",
-  "organization_name" : "罗",
-  "gender" : "男"
+  "name": "zll",
+  "age": 29,
+  "star": 4.5,
+  "married": true
 }
 ```
 
 ```dart
 class Test {
-  String mobile;
-  String avatar;
-  String organizationId;
-  String birthdate;
-  String type;
-  String applyTime;
-  String nickName;
-  String id;
-  String courseTitle;
-  String createdAt;
-  String updatedAt;
-  String organizationName;
-  String gender;
+  String name;
+  int age;
+  double star;
+  bool married;
 
   static Test fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
     Test testBean = Test();
-    testBean.mobile = map['mobile'];
-    testBean.avatar = map['avatar'];
-    testBean.organizationId = map['organization__id'];
-    testBean.birthdate = map['birthdate'];
-    testBean.type = map['type'];
-    testBean.applyTime = map['apply_time'];
-    testBean.nickName = map['nick_name'];
-    testBean.id = map['id'];
-    testBean.courseTitle = map['course_title'];
-    testBean.createdAt = map['created_at'];
-    testBean.updatedAt = map['updated_at'];
-    testBean.organizationName = map['organization_name'];
-    testBean.gender = map['gender'];
+    testBean.name = map['name'];
+    testBean.age = map['age'];
+    testBean.star = map['star'];
+    testBean.married = map['married'];
     return testBean;
   }
 
   Map toJson() => {
-    "mobile": mobile,
-    "avatar": avatar,
-    "organization__id": organizationId,
-    "birthdate": birthdate,
-    "type": type,
-    "apply_time": applyTime,
-    "nick_name": nickName,
-    "id": id,
-    "course_title": courseTitle,
-    "created_at": createdAt,
-    "updated_at": updatedAt,
-    "organization_name": organizationName,
-    "gender": gender,
+    "name": name,
+    "age": age,
+    "star": star,
+    "married": married,
   };
 }
 ```
