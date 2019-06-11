@@ -1,3 +1,14 @@
+### Update
+#### ver 2.1
+
+generate 『toJson』 function to support converting object to map
+
+```dart
+import 'dart:convert'
+
+var json = JsonEncoder().convert(obj);
+```
+
 ### Install
 #### 1. Download jar
 https://plugins.jetbrains.com/plugin/11551-dart-json-format
