@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>com.zll.format</id>
   <name>dart_json_format</name>
-  <version>2.0</version>
+  <version>2.1</version>
   <vendor email="413700858@qq.com" url="https://github.com/neverwoodsS">neverwoods</vendor>
 
   <description>
@@ -9,8 +9,8 @@
   </description>
 
   <change-notes>
-    fix the known bugs/issues;
-    code refactor;
+    fix issue#6;
+    generate toJson function code;
   </change-notes>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
