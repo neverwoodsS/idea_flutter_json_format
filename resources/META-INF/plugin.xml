@@ -1,6 +1,6 @@
 <idea-plugin>
   <id>com.zll.format</id>
-  <name>dart_json_format</name>
+  <name>flutter_json_format</name>
   <version>2.1</version>
   <vendor email="413700858@qq.com" url="https://github.com/neverwoodsS">neverwoods</vendor>
 
@@ -29,7 +29,7 @@
 
   <actions>
     <!-- Add your actions here -->
-    <action id="DartJsonFormat" class="com.zll.format.DartJsonFormatAction" text="dart json format">
+    <action id="DartJsonFormat" class="com.zll.format.DartJsonFormatAction" text="flutter json format">
       <add-to-group group-id="GenerateGroup" anchor="first"/>
       <keyboard-shortcut keymap="$default" first-keystroke="meta N"/>
     </action>
