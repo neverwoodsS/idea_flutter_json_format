@@ -1,16 +1,17 @@
 <idea-plugin>
   <id>com.zll.format</id>
   <name>flutter_json_format</name>
-  <version>2.1</version>
+  <version>2.2</version>
   <vendor email="413700858@qq.com" url="https://github.com/neverwoodsS">neverwoods</vendor>
 
   <description>
-    Help to generate Dart data class from JSON string.
+    Help to generate Dart data class from JSON string in Flutter Projects.
   </description>
 
   <change-notes>
     fix issue#6;
     generate toJson function code;
+    rename project to flutter_json_format;
   </change-notes>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
