@@ -9,7 +9,6 @@ import java.lang.IllegalStateException
 class ClazzGenerator(val settings: Settings?) {
     companion object {
         fun isJson(string: String?): Boolean {
-            println("input string = $string")
             if (string.isNullOrEmpty()) return false
             return try {
                 JsonParser().parse(string).let { it.isJsonObject || it.isJsonArray }
