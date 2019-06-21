@@ -10,9 +10,10 @@ import javax.swing.JFrame
 
 class DartJsonFormatAction : AnAction() {
     override fun actionPerformed(event: AnActionEvent) {
-        PsiUtilBase.getPsiFileInEditor(event.getData(PlatformDataKeys.EDITOR) as Editor,
-                event.getData(PlatformDataKeys.PROJECT) as Project)
-                ?.let { UiBuilder(it.project, it.virtualFile) }
+        val editor = event.getData(PlatformDataKeys.EDITOR) as Editor
+
+        PsiUtilBase.getPsiFileInEditor(editor, event.getData(PlatformDataKeys.PROJECT) as Project)
+                ?.let { UiBuilder(it.project, it.virtualFile, editor) }
                 ?.let {
                     it.frame = JFrame("flutter json format").apply {
                         // size and location

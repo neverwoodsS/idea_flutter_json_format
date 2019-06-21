@@ -1,5 +1,6 @@
 package com.zll.format
 
+import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.IconLoader
 import com.intellij.openapi.vfs.VirtualFile
@@ -9,7 +10,7 @@ import javax.swing.*
 import javax.swing.event.DocumentEvent
 import javax.swing.event.DocumentListener
 
-class UiBuilder(private val project: Project, private val virtualFile: VirtualFile) {
+class UiBuilder(private val project: Project, private val virtualFile: VirtualFile, private val editor: Editor) {
 
     var frame: JFrame? = null
 
@@ -52,7 +53,7 @@ class UiBuilder(private val project: Project, private val virtualFile: VirtualFi
                 if (classesString.startsWith("error:")) {
                     JOptionPane.showMessageDialog(panel, classesString.substring(6), "error", JOptionPane.WARNING_MESSAGE, icon)
                 } else {
-                    Util.writeToFile(project, virtualFile, classesString)
+                    Util.writeToFile(project, virtualFile, editor, classesString)
                     frame?.dispose()
                 }
             }
