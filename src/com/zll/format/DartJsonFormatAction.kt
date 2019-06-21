@@ -14,7 +14,7 @@ class DartJsonFormatAction : AnAction() {
                 event.getData(PlatformDataKeys.PROJECT) as Project)
                 ?.let { UiBuilder(it.project, it.virtualFile) }
                 ?.let {
-                    it.frame = JFrame("dart json format").apply {
+                    it.frame = JFrame("flutter json format").apply {
                         // size and location
                         setSize(700, 520)
                         setLocation(-350, -260)

@@ -6,6 +6,7 @@ import com.intellij.ui.components.JBScrollPane
 import com.zll.format.ClazzGenerator
 import com.zll.format.Settings
 import com.zll.format.Util
+import java.awt.Insets
 import javax.swing.*
 
 class UiBuilder(private val project: Project, private val virtualFile: VirtualFile) {
@@ -30,6 +31,7 @@ class UiBuilder(private val project: Project, private val virtualFile: VirtualFi
 
         val jsonText = JTextArea().apply {
             setBounds(10,50,680,400)
+            margin = Insets(5, 5, 5, 5)
         }
 
         val commentCb = JCheckBox("generate comments", settings.generateComments).apply {
