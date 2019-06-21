@@ -7,12 +7,26 @@ import com.google.gson.JsonParser
 import java.lang.IllegalStateException
 
 class ClazzGenerator(val settings: Settings?) {
+    companion object {
+        fun isJson(string: String?): Boolean {
+            println("input string = $string")
+            if (string.isNullOrEmpty()) return false
+            return try {
+                JsonParser().parse(string).let { it.isJsonObject || it.isJsonArray }
+            } catch (e: Exception) {
+                false
+            }
+        }
+    }
 
     fun generate(name: String, string: String) = try {
         JsonParser().parse(string).let {
             when (it) {
                 is JsonObject -> it.asJsonObject
-                is JsonArray -> it.asJsonArray[0].asJsonObject
+                is JsonArray -> it.let {
+                    if (it.size() == 0) throw IllegalStateException("Not a JSON Object")
+                    it[0].asJsonObject
+                }
                 else -> null
             }
         }.let { obj ->
