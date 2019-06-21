@@ -14,12 +14,16 @@ class DartJsonFormatAction : AnAction() {
                 event.getData(PlatformDataKeys.PROJECT) as Project)
                 ?.let { UiBuilder(it.project, it.virtualFile) }
                 ?.let {
-                    JFrame("dart json format").apply {
+                    it.frame = JFrame("dart json format").apply {
+                        // size and location
                         setSize(700, 520)
+                        setLocation(-350, -260)
+                        setLocationRelativeTo(null)
+
                         defaultCloseOperation = JFrame.DISPOSE_ON_CLOSE
                         add(it.build())
                         isVisible = true
-                    }.apply { it.frame = this }
+                    }
                 }
     }
 }
